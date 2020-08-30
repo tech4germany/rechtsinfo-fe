@@ -1,0 +1,14 @@
+{% macro getHeadings(item) %}
+<li>
+    {% if item.type === "article" %}<a href="./{{ item.attributes.name | slug }}.html">{% endif %}
+        <span class="paragraph-name">{{ item.attributes.name }}</span> {{ item.attributes.title }}
+    {% if item.type === "article" %}</a>{% endif %}
+    {% if item.children %}
+    <ul>
+        {% for item in item.children %}
+        {{ getHeadings(item) }}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>
+{% endmacro %}

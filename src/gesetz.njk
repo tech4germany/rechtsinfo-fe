@@ -1,0 +1,60 @@
+---
+pagination:
+  data: gesetze
+  alias: gesetz
+  size: 1
+layout: main
+permalink: "/{{ gesetz.attributes.officialAbbr | lower }}/"
+title: { { gesetz.attributes.officialAbbr } }
+---
+
+{% from "macros/getChildren.njk" import getChildren %} {% from
+"macros/getHeadings.njk" import getHeadings %}
+
+<div class="govuk-width-container">
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Home</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Level 1</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#">Level 2</a>
+      </li>
+    </ol>
+  </div>
+
+  <main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">
+          {{ gesetz.attributes.headingLong }} ({{
+            gesetz.attributes.officialAbbr
+          }})
+        </h1>
+        <div class="govuk-body gesetz-text">
+          <ul>
+            {% for item in gesetz.content %}
+            {{
+              getChildren(item)
+            }}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="govuk-grid-column-one-third inhaltsverzeichnis">
+        <h3 class="govuk-heading-m">Nichtamtliches Inhaltsverzeichnis</h3>
+        <ul>
+          {% for item in gesetz.content %}
+          {{
+            getHeadings(item)
+          }}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,79 @@
+@import "normalize";
+
+$govuk-font-family: "IBM Plex Serif";
+$govuk-brand-colour: #004f80;
+
+@import "../../node_modules/govuk-frontend/govuk/all";
+
+html,
+body {
+  font: 16px "IBM Plex Serif", Helvetica, Arial, sans-serif;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100vw;
+  padding: 1rem;
+  // max-width: 1200px;
+  overflow: hidden;
+}
+
+.govuk-header {
+  background: none;
+  img {
+    width: 200px;
+  }
+}
+
+.govuk-header__container {
+  border-bottom: none;
+  border-top: 10px solid $govuk-brand-colour;
+  padding-top: 20px;
+}
+
+.paragraph-name {
+  font-weight: 600;
+}
+
+.content-small {
+  font-size: 10px;
+}
+
+table {
+  max-width: 100%;
+}
+
+.inhaltsverzeichnis ul,
+ol {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.gesetz-text {
+  ul,
+  ol {
+    list-style-type: none;
+    padding-left: 0;
+  }
+}
+
+dt,
+dd {
+  display: inline-block;
+}
+
+dt {
+  width: 2rem;
+  vertical-align: top;
+}
+
+dt + dd,
+dt + la {
+  width: calc(100% - 2rem);
+  margin-left: 0;
+}

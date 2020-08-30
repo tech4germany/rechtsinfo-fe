@@ -1,0 +1,29 @@
+{% extends 'layouts/main.njk' %}
+{% set title = "Rechtsinformationsportal" %}
+{% block content %}
+<div class="govuk-width-container">
+
+  <main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <ul>
+      {% for gesetz in gesetze -%}
+        <li><a href="/{{gesetz.attributes.officialAbbr | lower }}">{{ gesetz.attributes.headingLong }} ({{gesetz.attributes.officialAbbr}})</a></li>
+      {% endfor -%}
+      </ul>
+    </div>
+  </main>
+</div>
+
+  
+  {# <div class="field">
+    <label for="searchField">Search</label>
+    <input type="search" placeholder="Search..." id="searchField">
+  </div>
+
+  <ol id="searchResults"/>
+  <script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"
+></script>
+  <script type="text/javascript" src="/js/search.js"></script> #}
+{% endblock %}
