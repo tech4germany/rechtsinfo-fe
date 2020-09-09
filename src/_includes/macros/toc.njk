@@ -1,0 +1,14 @@
+{% macro tableOfContents(item) %}
+<li>
+    {% if item.type === "article" %}<a href="./{{ item.id }}.html">{% endif %}
+        <span class="paragraph-name">{{ item.name }}</span> {{ item.title }}
+    {% if item.type === "article" %}</a>{% endif %}
+    {% if item.children.length %}
+    <ul>
+        {% for item in item.children %}
+        {{ tableOfContents(item) }}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>
+{% endmacro %}

@@ -6,8 +6,8 @@
   <main class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <ul>
-      {% for gesetz in gesetze -%}
-        <li><a href="/{{gesetz.attributes.officialAbbr | lower }}">{{ gesetz.attributes.headingLong }} ({{gesetz.attributes.officialAbbr}})</a></li>
+      {% for law in laws -%}
+        <li><a href="/{{law.data.abbreviation | lower }}">{{ law.data.headingShort }} ({{law.data.abbreviation}})</a></li>
       {% endfor -%}
       </ul>
     </div>

@@ -5,7 +5,7 @@
   "main": ".eleventy.js",
   "scripts": {
     "sass": "sass --style=compressed src/scss/styles.scss src/_includes/css/styles.css",
-    "watch:eleventy": "DEBUG=Eleventy* eleventy --serve",
+    "watch:eleventy": "eleventy --serve",
     "watch:sass": "npm run sass -- --watch",
     "start": "npm-run-all sass --parallel watch:*",
     "build": "npm run sass && eleventy"
@@ -17,6 +17,7 @@
     "elasticlunr": "^0.9.5",
     "govuk-frontend": "^3.8.1",
     "npm-run-all": "^4.1.5",
+    "require-dir": "^1.2.0",
     "sass": "^1.26.10"
   },
   "devDependencies": {

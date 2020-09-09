@@ -44,11 +44,11 @@ table {
   max-width: 100%;
 }
 
-.inhaltsverzeichnis ul,
-ol {
-  list-style-type: none;
-  padding-left: 0;
-}
+// .inhaltsverzeichnis ul,
+// ol {
+//   list-style-type: none;
+//   padding-left: 0;
+// }
 
 .gesetz-text {
   ul,
@@ -70,6 +70,6 @@ dt {
 
 dt + dd,
 dt + la {
-  width: calc(100% - 2rem);
+  width: calc(100% - 2.5rem);
   margin-left: 0;
 }

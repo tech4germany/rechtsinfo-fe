@@ -1,0 +1,10 @@
+---
+layout: main
+pagination:
+  data: sections
+  alias: section
+  size: 1
+permalink: "/{{ section.abbreviation | slug }}/{{ section.id }}.html"
+title: Test
+---
+{{ section | dump }}

@@ -1,15 +1,14 @@
 ---
 pagination:
-  data: gesetze
-  alias: gesetz
+  data: laws
+  alias: item
   size: 1
 layout: main
-permalink: "/{{ gesetz.attributes.officialAbbr | lower }}/"
-title: { { gesetz.attributes.officialAbbr } }
+permalink: "/{{item.data.abbreviation | lower}}/"
+title: {{item.data.headingLong}}
 ---
 
-{% from "macros/getChildren.njk" import getChildren %} {% from
-"macros/getHeadings.njk" import getHeadings %}
+{% from "macros/toc.njk" import tableOfContents %}
 
 <div class="govuk-width-container">
   <div class="govuk-breadcrumbs">
@@ -18,9 +17,9 @@ title: { { gesetz.attributes.officialAbbr } }
         <a class="govuk-breadcrumbs__link" href="../">Start</a>
       </li>
       <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="#">{{
-          gesetz.attributes.headingLong
-        }}</a>
+        <span class="govuk-breadcrumbs__link" >{{
+          item.data.headingLong
+        }}</span>
       </li>
     </ol>
   </div>
@@ -29,29 +28,22 @@ title: { { gesetz.attributes.officialAbbr } }
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-xl">
-          {{ gesetz.attributes.headingLong }} ({{
-            gesetz.attributes.officialAbbr
-          }})
+          {{item.data.headingLong}} ({{item.data.abbreviation}})
         </h1>
         <div class="govuk-body gesetz-text">
-          <ul>
-            {% for item in gesetz.content %}
-            {{
-              getChildren(item)
-            }}
+            {% for section in item.data.contents %}
+            <h4>{{section.name}} {{section.title}}</h4>
+            <p>{{section.body.content | safe}}</p>
             {% endfor %}
-          </ul>
         </div>
       </div>
 
       <div class="govuk-grid-column-one-third inhaltsverzeichnis">
         <h3 class="govuk-heading-m">Nichtamtliches Inhaltsverzeichnis</h3>
         <ul>
-          {% for item in gesetz.content %}
-          {{
-            getHeadings(item)
-          }}
-          {% endfor %}
+        {% for item in item.data.contents | unflatten %}
+          {{ tableOfContents(item) }}
+        {% endfor %}
         </ul>
       </div>
     </div>

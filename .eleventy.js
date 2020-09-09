@@ -1,4 +1,4 @@
-const searchFilter = require("./src/filters/searchFilter");
+const unflattenFilter = require("./src/filters/unflattenFilter");
 
 module.exports = function (config) {
   config.addPassthroughCopy("src/js");
@@ -10,9 +10,7 @@ module.exports = function (config) {
   //   return [...collection.getFilteredByGlob("./src/movies/**/*.md")];
   // });
 
-  // config.addCollection("gesetze", (collection) => {
-  //   return [...collection.getFilteredByGlob("./src/gesetze/*.json")];
-  // });
+  config.addNunjucksFilter("unflatten", unflattenFilter);
 
   config.addLayoutAlias("main", "layouts/main.njk");
 
