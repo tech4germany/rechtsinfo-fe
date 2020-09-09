@@ -1,6 +1,6 @@
 var requireDir = require("require-dir");
 var laws = requireDir(__dirname + "/single/");
-module.exports = function () {
+module.exports = async function () {
   const sections = [];
 
   Object.keys(laws).forEach((item) => {
