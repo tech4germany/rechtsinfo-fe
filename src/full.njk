@@ -61,7 +61,7 @@ renderData:
                 {{ section.body.content | safe }}
               {% endif %}
           {% elif section.type === "article" %}
-              <h3 class="article-name"><a href="#"><span class="accent-gray">{{section.name}}</span> {{section.title}}</a></h3>
+              <h3 class="article-name"><a href="{{section.id}}.html"><span class="accent-gray">{{section.name}}</span> {{section.title}}</a></h3>
               <p>{{section.body.content | safe}}</p>
           {% endif %}
         </article>
