@@ -5,7 +5,7 @@
   "main": ".eleventy.js",
   "scripts": {
     "sass": "sass --style=compressed src/scss/styles.scss src/_includes/css/styles.css",
-    "watch:eleventy": "eleventy cross-env NODE_ENV=development --serve",
+    "watch:eleventy": "cross-env NODE_ENV=development eleventy --serve",
     "watch:sass": "npm run sass -- --watch",
     "start": "npm-run-all sass --parallel watch:*",
     "build": "npm run sass && eleventy"
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@11ty/eleventy": "^0.10.0",
+    "cross-env": "^7.0.2",
     "elasticlunr": "^0.9.5",
     "govuk-frontend": "^3.8.1",
     "npm-run-all": "^4.1.5",

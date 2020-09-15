@@ -1,5 +1,9 @@
 var requireDir = require("require-dir");
-var laws = requireDir(__dirname + "/single/");
+const isDevelopment = process.env.NODE_ENV === "development";
+const laws = isDevelopment
+  ? requireDir(__dirname + "/single/")
+  : requireDir(__dirname + "/multiple/");
+
 module.exports = function () {
   const sections = [];
 
