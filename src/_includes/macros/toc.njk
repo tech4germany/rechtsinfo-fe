@@ -1,8 +1,8 @@
 {% macro tableOfContents(item) %}
 <li>
-    {% if item.type === "article" %}<a href="./{{ item.id }}.html">{% endif %}
+    <a href="#{{item.id}}" data-parent="text" class="deep-link">
         <span class="paragraph-name">{{ item.name }}</span> {{ item.title }}
-    {% if item.type === "article" %}</a>{% endif %}
+    </a>
     {% if item.children.length %}
     <ul>
         {% for item in item.children %}
@@ -11,4 +11,16 @@
     </ul>
     {% endif %}
 </li>
+<script>
+document.querySelectorAll('.deep-link').forEach(item => {
+  item.addEventListener('click', event => {
+    event.preventDefault();
+    const parent = item.dataset.parent;
+    const section = item.getAttribute("href");
+    window.location.hash = parent;
+    const element = document.querySelector(section);
+    setTimeout(function(){ element.scrollIntoView({behavior: "smooth"}); }, 100);
+  })
+})
+</script>
 {% endmacro %}

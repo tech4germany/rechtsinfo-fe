@@ -1,6 +1,6 @@
 const requireDir = require("require-dir");
-const laws = requireDir(__dirname + "/single/");
+const laws = requireDir(__dirname + "/multiple/");
 
-module.exports = async function () {
+module.exports = () => {
   return Object.values(laws);
 };

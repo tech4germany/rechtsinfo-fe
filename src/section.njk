@@ -7,21 +7,26 @@ pagination:
 permalink: "/{{ section.abbreviation | slug }}/{{ section.id }}.html"
 title: Test
 ---
-<div class="govuk-width-container">
-  <div class="govuk-breadcrumbs">
-    <ol class="govuk-breadcrumbs__list">
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="../">Start</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="./index.html">{{section.abbreviation}}</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <span class="govuk-breadcrumbs__link">{{section.name}} {{section.title}}</span>
-      </li>
-    </ol>
-  </div>
 
+{% from "../node_modules/govuk-frontend/govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+<div class="govuk-width-container">
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Start",
+      href: "../"
+    },
+    {
+      text: section.abbreviation,
+      href: "./index.html"
+    },
+    {
+      text: section.name + section.title | empty,
+      href: "#"
+    }
+  ]
+}) }}
   <main class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">

@@ -2343,6 +2343,8 @@ Tabs.prototype.onTabClick = function (e) {
   var $currentTab = this.getCurrentTab();
   this.hideTab($currentTab);
   this.showTab($newTab);
+  console.log("current tab: ", $currentTab)
+  console.log("new tab: ", $newTab)
   this.createHistoryEntry($newTab);
 };
 
@@ -2402,6 +2404,7 @@ Tabs.prototype.activatePreviousTab = function () {
 };
 
 Tabs.prototype.getPanel = function ($tab) {
+  console.log(this.$module)
   var $panel = this.$module.querySelector(this.getHref($tab));
   return $panel
 };
