@@ -4,14 +4,15 @@ pagination:
   alias: item
   size: 1
 layout: main
-permalink: "/{{item.data.abbreviation | lower}}/"
+permalink: "/{{ item.data.abbreviation | slug }}/"
 renderData:
-  title: {{item.data.headingLong}}
+  title: {{ item.data.headingLong }}
 ---
 
 {% from "macros/toc.njk" import tableOfContents %}
 
 <div class="govuk-width-container">
+  <main class="govuk-main-wrapper">
   <div class="govuk-breadcrumbs">
     <ol class="govuk-breadcrumbs__list">
       <li class="govuk-breadcrumbs__list-item">
@@ -24,8 +25,16 @@ renderData:
       </li>
     </ol>
   </div>
-
-  <main class="govuk-main-wrapper">
+  <section class="content">
+    <header>
+    {% if item.data.headingShort %}
+      <h1>{{ item.data.headingShort }}</h1>
+      <span class="govuk-caption-xl">{{ item.data.headingLong | safe }}</span>
+      {% else %}
+      <h1>{{ item.data.headingLong }}</h1>
+    {% endif %}
+    </header>
+  
     <div class="govuk-tabs" data-module="govuk-tabs">
       <ul class="govuk-tabs__list">
         <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
@@ -46,29 +55,23 @@ renderData:
       </ul>
 
       <div class="govuk-tabs__panel" id="text">
-        {% if item.data.headingShort %}
-          <h1>{{ item.data.headingShort }}</h1>
-          <span class="govuk-caption-xl">{{item.data.headingLong}}</span>
-          {% else %}
-          <h1>{{ item.data.headingLong }}</h1>
-        {% endif %}
         {% for section in item.data.contents %}
         <article id ="{{ section.id }}">
           {% if section.type === "heading" %}
-              <h3 class="subheading" id>{{section.name}}<br/>
-              {{ section.title }}</h3>
+              <h3 class="subheading" id>{{section.name | safe }}<br/>
+              {{ section.title | safe }}</h3>
               {% if section.body.content %}
                 {{ section.body.content | safe }}
               {% endif %}
           {% elif section.type === "article" %}
-              <h3 class="article-name"><a href="{{section.id}}.html"><span class="accent-gray">{{section.name}}</span> {{section.title}}</a></h3>
-              <p>{{section.body.content | safe}}</p>
+              <h3 class="article-name"><a href="{{section.id}}.html"><span class="accent-gray">{{section.name}}</span> {{ section.title | safe }}</a></h3>
+              <p>{{ section.body.content | safe }}</p>
           {% endif %}
         </article>
         {% endfor %}
       </div>
 
-      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="inhaltsverzeichnis">
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="inhaltsverzeichnis" data-type="inhaltsverzeichnis">
         <h3 class="govuk-heading-m">Nichtamtliches Inhaltsverzeichnis</h3>
         <ul>
         {% for item in item.data.contents | unflatten %}
@@ -78,8 +81,33 @@ renderData:
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="weitere-informationen">
+
+        <div class="info current">
+          <i class="fas fa-check"></i>
+          <p class="">Aktuelle Version</p>
+        </div>
+
+        <div class="info">
+          <i class="fas fa-font"></i>
+          <p class="">Abkürzung: {{ item.data.abbreviation }}</p>
+        </div>
+        
+        {% for status in item.data.statusInfo %}
+          {% if status.category === "Stand" %}
+            <div class="info">
+              <i class="fas fa-calendar-check"></i>
+              <p class="">Stand: {{ status.comment }}</p>
+            </div>
+          {% elif status.category === "Hinweis" %}
+            <div class="info">
+              <i class="fas fa-exclamation-circle"></i>
+              <p class="">Hinweis: {{ status.comment }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
         
       </div>
     </div>
+    </section>
   </main>
 </div>

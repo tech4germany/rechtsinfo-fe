@@ -1,10 +1,24 @@
-$govuk-font-family: "IBM Plex Serif";
+// GOVUK VARIABLE OVERRIDES
+$govuk-font-family: 'IBM Plex Serif';
 $govuk-brand-colour: #004f80;
 $govuk-focus-colour: #81b5d4;
 $govuk-text-colour: #333333;
 $govuk-secondary-text-colour: #4d4d4d;
 $govuk-link-colour: #333333;
 
+$govuk-page-width: 1200px;
+$govuk-breakpoints: (
+  mobile: 320px,
+  tablet: 641px,
+  desktop: 900px,
+);
+
+// ADDITIONAL VARIABLES
 $white: #ffffff;
 $border-gray: #dbdbdb;
-$accent-gray: #4d4d4d;
+$green: #00703c;
+$darkblue: #003f66;
+
+$custom-breakpoints: (
+  xl: 1200px,
+);

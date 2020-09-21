@@ -1,7 +1,7 @@
 {% macro tableOfContents(item) %}
 <li>
     <a href="#{{item.id}}" data-parent="text" class="deep-link">
-        <span class="paragraph-name">{{ item.name }}</span> {{ item.title }}
+        <span class="paragraph-name">{{ item.name | safe }}</span> {{ item.title | safe }}
     </a>
     {% if item.children.length %}
     <ul>
@@ -11,16 +11,4 @@
     </ul>
     {% endif %}
 </li>
-<script>
-document.querySelectorAll('.deep-link').forEach(item => {
-  item.addEventListener('click', event => {
-    event.preventDefault();
-    const parent = item.dataset.parent;
-    const section = item.getAttribute("href");
-    window.location.hash = parent;
-    const element = document.querySelector(section);
-    setTimeout(function(){ element.scrollIntoView({behavior: "smooth"}); }, 100);
-  })
-})
-</script>
 {% endmacro %}

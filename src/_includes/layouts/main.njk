@@ -9,27 +9,27 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
-    <script defer src="https://use.fontawesome.com/releases/v5.7.0/js/all.js" crossorigin="anonymous"></script>
     <style>
       {% include "css/styles.css" ignore missing %}
     </style>
   </head>
-  <body>
+  <body class="govuk-template__body ">
     <script>
       document.body.className = document.body.className
         ? document.body.className + " js-enabled"
         : "js-enabled";
     </script>
-    <div class="container">
-      {% include "../partials/header.njk" %} {#
-      <h1>{{ title }}</h1>
-      #}
+    <div class="govuk-width-container">
+      {% include "../partials/header.njk" %}
       {{ content | safe }}
       {% block content %}{% endblock content %}
+      <button id="scroll-to-top">Nach oben <i class="fas fa-arrow-up"></i></button>
     </div>
     <script src="/js/govuk.js"></script>
     <script>
       window.GOVUKFrontend.initAll();
     </script>
+    <script type="text/javascript" src="/js/deeplink.js"></script>
+    <script type="text/javascript" src="/js/scrolltop.js"></script>
   </body>
 </html>

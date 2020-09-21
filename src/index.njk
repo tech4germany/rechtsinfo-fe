@@ -7,7 +7,7 @@
     <div class="govuk-grid-row">
       <ul>
       {% for law in laws -%}
-        <li><a href="/{{law.data.abbreviation | lower }}">
+        <li><a href="/{{law.data.abbreviation | slug }}">
         {% if law.data.headingShort %}{{ law.data.headingShort }}
         {% else %}
         {{ law.data.headingLong }}
@@ -18,17 +18,4 @@
     </div>
   </main>
 </div>
-
-  
-  {# <div class="field">
-    <label for="searchField">Search</label>
-    <input type="search" placeholder="Search..." id="searchField">
-  </div>
-
-  <ol id="searchResults"/>
-  <script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"
-></script>
-  <script type="text/javascript" src="/js/search.js"></script> #}
 {% endblock %}

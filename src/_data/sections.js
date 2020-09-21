@@ -1,5 +1,7 @@
-var requireDir = require("require-dir");
+const requireDir = require("require-dir");
+
 const isDevelopment = process.env.NODE_ENV === "development";
+
 const laws = isDevelopment
   ? requireDir(__dirname + "/single/")
   : requireDir(__dirname + "/multiple/");
@@ -15,8 +17,10 @@ module.exports = function () {
     const articleArray = articles.map((articleItem) => ({
       ...articleItem,
       abbreviation: currentLaw.abbreviation,
+      toc: currentLaw.abbreviation,
     }));
     sections.push(...articleArray);
   });
+
   return sections;
 };
