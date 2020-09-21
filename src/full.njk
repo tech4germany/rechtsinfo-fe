@@ -16,7 +16,7 @@ renderData:
   <div class="govuk-breadcrumbs">
     <ol class="govuk-breadcrumbs__list">
       <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="../">Start</a>
+        <a class="govuk-breadcrumbs__link" href="{{ '/' | url }}">Start</a>
       </li>
       <li class="govuk-breadcrumbs__list-item">
         <span class="govuk-breadcrumbs__link" >{{
@@ -75,7 +75,7 @@ renderData:
         <h3 class="govuk-heading-m">Nichtamtliches Inhaltsverzeichnis</h3>
         <ul>
         {% for item in item.data.contents | unflatten %}
-          {{ tableOfContents(item) }}
+          {{ tableOfContents(item, deepLink=true) }}
         {% endfor %}
         </ul>
       </div>

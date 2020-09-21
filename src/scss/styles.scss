@@ -3,9 +3,34 @@
 @import '../../node_modules/govuk-frontend/govuk/all';
 @import 'fontawesome/fontawesome.scss';
 
+@font-face {
+  font-family: 'Bundes Serif';
+  src: url('{{ url }}/assets/webfonts/bundes-serif/BundesSerif-Web-Regular.eot');
+  src: url('{{ url }}/assets/webfonts/bundes-serif/BundesSerif-Web-Regular.eot?#iefix')
+      format('embedded-opentype'),
+    url('{{ url }}/assets/webfonts/bundes-serif/BundesSerif-Web-Regular.woff')
+      format('woff'),
+    url('{{ url }}/assets/webfonts/bundes-serif/BundesSerif-Web-Regular.ttf')
+      format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Bundes Serif';
+  src: url('{{ url }}/assets/webfonts/bundes-serif/BundesSerif-Web-Bold.eot');
+  src: url('{{ url }}/assets/webfonts/bundes-serif/BundesSerif-Web-Bold.eot?#iefix')
+      format('embedded-opentype'),
+    url('{{ url }}/assets/webfonts/bundes-serif/BundesSerif-Web-Bold.woff')
+      format('woff'),
+    url('{{ url }}/assets/webfonts/bundes-serif/BundesSerif-Web-Bold.ttf')
+      format('truetype');
+  font-weight: 600;
+}
+
 html,
 body {
-  font: 16px 'IBM Plex Serif', Helvetica, Arial, sans-serif;
+  font-family: 'Bundes Serif', 'Cambria', 'Georgia', 'Times New Roman', serif;
+  font-size: 18px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,7 +42,7 @@ body {
 @include govuk-media-query($from: desktop) {
   html,
   body {
-    font-size: 1.125rem;
+    font-size: 18px;
   }
 }
 
@@ -65,6 +90,8 @@ table {
 }
 
 [data-type='inhaltsverzeichnis'] {
+  font-size: 1.125rem;
+
   ul,
   ol {
     list-style-type: none;
@@ -72,6 +99,15 @@ table {
     ul,
     ol {
       padding-left: 10px;
+    }
+  }
+  li {
+    line-height: 2.8125rem;
+    padding: 0 10px;
+
+    &.current-section {
+      background-color: $lightblue;
+      border-radius: $border-radius;
     }
   }
 }
@@ -105,7 +141,7 @@ dt + la {
 h1,
 h2 {
   color: $govuk-brand-colour;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.09375;
   display: block;
   margin-top: 0;
@@ -216,7 +252,7 @@ a {
   -ms-flex-align: center;
   align-items: center;
   border: none;
-  border-radius: 8px;
+  border-radius: $border-radius;
   background-color: rgba(0, 0, 0, 0.04);
   font-size: 1rem;
 
@@ -230,7 +266,7 @@ a {
 
   .govuk-tabs__tab {
     margin-bottom: 0;
-    font-weight: 500;
+    font-weight: 600;
     width: 100%;
     &:link,
     &:visited,
@@ -277,10 +313,14 @@ a {
     font-size: 1.5rem;
   }
 
+  [data-type='inhaltsverzeichnis'] {
+    font-size: 1rem;
+  }
+
   .js-enabled {
     .govuk-tabs {
       display: flex;
-      flex-direction: row-reverse;
+      flex-direction: row;
     }
 
     .govuk-tabs__list {
@@ -288,8 +328,8 @@ a {
       flex-direction: column;
       min-width: fit-content;
       align-self: flex-start;
-      // position: -webkit-sticky;
-      // position: sticky;
+      position: -webkit-sticky;
+      position: sticky;
       top: 0;
     }
 
@@ -299,7 +339,11 @@ a {
 
     .govuk-tabs__panel {
       width: 100%;
-      padding: 0 2rem 0 0;
+      padding: 0 0 0 2rem;
+
+      h3:first-of-type {
+        margin-top: 0;
+      }
     }
   }
 }

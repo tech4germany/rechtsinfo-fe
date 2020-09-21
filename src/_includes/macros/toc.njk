@@ -1,12 +1,20 @@
-{% macro tableOfContents(item) %}
+{% macro tableOfContents(item, deepLink, current) %}
+{% if current === item.id %}
+<li class="current-section">
+{% else %}
 <li>
+{% endif %}
+    {% if deepLink %}
     <a href="#{{item.id}}" data-parent="text" class="deep-link">
+    {% else %}
+    <a href="./{{item.id}}.html">
+    {% endif %}
         <span class="paragraph-name">{{ item.name | safe }}</span> {{ item.title | safe }}
     </a>
     {% if item.children.length %}
     <ul>
         {% for item in item.children %}
-        {{ tableOfContents(item) }}
+        {{ tableOfContents(item, deepLink, current) }}
         {% endfor %}
     </ul>
     {% endif %}

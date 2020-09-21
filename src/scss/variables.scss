@@ -1,7 +1,7 @@
 // GOVUK VARIABLE OVERRIDES
-$govuk-font-family: 'IBM Plex Serif';
+$govuk-font-family: 'Bundes Serif';
 $govuk-brand-colour: #004f80;
-$govuk-focus-colour: #81b5d4;
+$govuk-focus-colour: #80cdec;
 $govuk-text-colour: #333333;
 $govuk-secondary-text-colour: #4d4d4d;
 $govuk-link-colour: #333333;
@@ -16,9 +16,12 @@ $govuk-breakpoints: (
 // ADDITIONAL VARIABLES
 $white: #ffffff;
 $border-gray: #dbdbdb;
+$lightblue: #d9f0ff;
 $green: #00703c;
 $darkblue: #003f66;
 
 $custom-breakpoints: (
   xl: 1200px,
 );
+
+$border-radius: 8px;

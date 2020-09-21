@@ -1,26 +1,30 @@
-const requireDir = require("require-dir");
+const requireDir = require('require-dir')
+const unflattenFilter = require('../filters/unflattenFilter')
 
-const isDevelopment = process.env.NODE_ENV === "development";
+const isDevelopment = process.env.NODE_ENV === 'development'
 
 const laws = isDevelopment
-  ? requireDir(__dirname + "/single/")
-  : requireDir(__dirname + "/multiple/");
+  ? requireDir(__dirname + '/single/')
+  : requireDir(__dirname + '/multiple/')
 
 module.exports = function () {
-  const sections = [];
+  const sections = []
 
   Object.keys(laws).forEach((item) => {
-    const currentLaw = laws[item].data;
+    const currentLaw = laws[item].data
+    // generate table of contents
+    const toc = unflattenFilter(laws[item].data.contents)
     const articles = currentLaw.contents.filter((article) => {
-      return article.type === "article";
-    });
+      return article.type === 'article'
+    })
     const articleArray = articles.map((articleItem) => ({
       ...articleItem,
       abbreviation: currentLaw.abbreviation,
-      toc: currentLaw.abbreviation,
-    }));
-    sections.push(...articleArray);
-  });
+      toc: toc,
+      statusInfo: currentLaw.statusInfo,
+    }))
+    sections.push(...articleArray)
+  })
 
-  return sections;
-};
+  return sections
+}

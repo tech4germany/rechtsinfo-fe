@@ -3,8 +3,7 @@ const emptyFilter = require('./src/filters/emptyFilter')
 
 module.exports = function (config) {
   config.addPassthroughCopy('src/js')
-  config.addPassthroughCopy('src/assets/images')
-  config.addPassthroughCopy('src/webfonts')
+  config.addPassthroughCopy('src/assets')
 
   // config.addCollection("movies", (collection) => {
   //   return [...collection.getFilteredByGlob("./src/movies/**/*.md")];
