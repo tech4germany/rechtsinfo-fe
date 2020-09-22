@@ -12,15 +12,14 @@ module.exports = function () {
   Object.keys(laws).forEach((item) => {
     const currentLaw = laws[item].data
     // generate table of contents
-    const toc = unflattenFilter(currentLaw.contents)
-    console.log(toc)
+    //const toc = unflattenFilter(currentLaw.contents)
     const articles = currentLaw.contents.filter((article) => {
       return article.type === 'article'
     })
     const articleArray = articles.map((articleItem) => ({
       ...articleItem,
       abbreviation: currentLaw.abbreviation,
-      toc: toc,
+      //toc: toc,
       //statusInfo: currentLaw.statusInfo,
     }))
     sections.push(...articleArray)
