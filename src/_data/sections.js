@@ -13,6 +13,7 @@ module.exports = function () {
     const currentLaw = laws[item].data
     // generate table of contents
     const toc = unflattenFilter(currentLaw.contents)
+    console.log(toc)
     const articles = currentLaw.contents.filter((article) => {
       return article.type === 'article'
     })
@@ -20,7 +21,7 @@ module.exports = function () {
       ...articleItem,
       abbreviation: currentLaw.abbreviation,
       toc: toc,
-      statusInfo: currentLaw.statusInfo,
+      //statusInfo: currentLaw.statusInfo,
     }))
     sections.push(...articleArray)
   })
