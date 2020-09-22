@@ -4,16 +4,15 @@ const unflattenFilter = require('../filters/unflattenFilter')
 const isDevelopment = process.env.NODE_ENV === 'development'
 
 const laws = isDevelopment
-  ? requireDir(__dirname + '/single/')
+  ? requireDir(__dirname + '/test/')
   : requireDir(__dirname + '/multiple/')
 
 module.exports = function () {
   const sections = []
-
   Object.keys(laws).forEach((item) => {
     const currentLaw = laws[item].data
     // generate table of contents
-    const toc = unflattenFilter(laws[item].data.contents)
+    const toc = unflattenFilter(currentLaw.contents)
     const articles = currentLaw.contents.filter((article) => {
       return article.type === 'article'
     })

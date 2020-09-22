@@ -4,10 +4,10 @@ pagination:
   data: sections
   alias: section
   size: 1
+eleventyComputed:
+  title: "{{ section.name }}"
 permalink: "/{{ section.abbreviation | slug }}/{{ section.id }}.html"
-title: Test
 ---
-
 {% from "../node_modules/govuk-frontend/govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "macros/toc.njk" import tableOfContents %}
 

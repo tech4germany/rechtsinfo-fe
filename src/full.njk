@@ -5,12 +5,14 @@ pagination:
   size: 1
 layout: main
 permalink: "/{{ item.data.abbreviation | slug }}/"
-renderData:
-  title: {{ item.data.headingLong }}
+eleventyComputed:
+  title: "{{ item.data.headingLong }}"
+tableOfContents:
+  abbreviation: {{ item.data.abbreviation }}
 ---
 
 {% from "macros/toc.njk" import tableOfContents %}
-
+{{ tableOfContents }}
 <div class="govuk-width-container">
   <main class="govuk-main-wrapper">
   <div class="govuk-breadcrumbs">

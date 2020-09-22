@@ -7,8 +7,8 @@
     "sass": "sass --style=compressed src/scss/styles.scss src/_includes/css/styles.css",
     "watch:eleventy": "NODE_ENV=development eleventy --serve",
     "watch:sass": "npm run sass -- --watch",
-    "start": "npm-run-all sass --parallel watch:*",
-    "build": "NODE_ENV=production npm run sass && eleventy"
+    "start": "npm-run-all --parallel watch:*",
+    "build": "NODE_ENV=production npm run --node-flags --max_old_space_size=8000 sass && eleventy"
   },
   "author": "",
   "license": "ISC",
