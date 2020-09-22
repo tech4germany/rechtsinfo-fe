@@ -7,8 +7,6 @@ layout: main
 permalink: "/{{ item.data.abbreviation | slug }}/"
 eleventyComputed:
   title: "{{ item.data.headingLong }}"
-tableOfContents:
-  abbreviation: {{ item.data.abbreviation }}
 ---
 
 {% from "macros/toc.njk" import tableOfContents %}
@@ -77,7 +75,7 @@ tableOfContents:
         <h3 class="govuk-heading-m">Nichtamtliches Inhaltsverzeichnis</h3>
         <ul>
         {% for item in item.data.contents | unflatten %}
-          {{ tableOfContents(item, deepLink=true) }}
+          {{ tableOfContents(item, deepLink=true, current='') }}
         {% endfor %}
         </ul>
       </div>
