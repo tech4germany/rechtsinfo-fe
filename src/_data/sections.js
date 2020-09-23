@@ -17,7 +17,7 @@ module.exports = function () {
     const articleArray = articles.map((articleItem) => ({
       ...articleItem,
       abbreviation: currentLaw.abbreviation,
-      statusInfo: currentLaw.statusInfo,
+      //statusInfo: currentLaw.statusInfo,
     }))
     sections.push(...articleArray)
   })
