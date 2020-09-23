@@ -73,8 +73,10 @@ eleventyComputed:
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="inhaltsverzeichnis" data-type="inhaltsverzeichnis">
         <h3 class="govuk-heading-m">Nichtamtliches Inhaltsverzeichnis</h3>
+        {% set slug = item.data.abbreviation | slug %}
+        {% set test = tocList | lookup(slug) %}
         <ul>
-        {% for item in item.data.contents | unflatten %}
+        {% for item in test %}
           {{ tableOfContents(item, deepLink=true, current='') }}
         {% endfor %}
         </ul>

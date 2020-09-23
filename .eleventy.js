@@ -1,5 +1,6 @@
 const unflattenFilter = require('./src/filters/unflattenFilter')
 const emptyFilter = require('./src/filters/emptyFilter')
+const lookupFilter = require('./src/filters/lookupFilter')
 
 module.exports = function (config) {
   config.addPassthroughCopy('src/js')
@@ -8,7 +9,7 @@ module.exports = function (config) {
   // config.addCollection("movies", (collection) => {
   //   return [...collection.getFilteredByGlob("./src/movies/**/*.md")];
   // });
-
+  config.addNunjucksFilter('lookup', lookupFilter)
   config.addNunjucksFilter('unflatten', unflattenFilter)
   config.addNunjucksFilter('empty', emptyFilter)
 

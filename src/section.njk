@@ -61,7 +61,7 @@ permalink: "/{{ section.abbreviation | slug }}/{{ section.id }}.html"
 
       <div class="govuk-tabs__panel" id="text">
 
-      {{section.body.content | safe }}
+      {{ section.body.content | safe }}
         {# {% for section in item.data.contents %}
         <article id ="{{ section.id }}">
           {% if section.type === "heading" %}
@@ -80,9 +80,10 @@ permalink: "/{{ section.abbreviation | slug }}/{{ section.id }}.html"
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="inhaltsverzeichnis" data-type="inhaltsverzeichnis">
         <h3 class="govuk-heading-m">Nichtamtliches Inhaltsverzeichnis</h3>
-        {{ section.toc | dump }}
+        {% set slug = section.abbreviation | slug %}
+        {% set test = tocList | lookup(slug) %}
         <ul>
-        {% for item in section.toc %}
+        {% for item in test %}
           {{ tableOfContents(item, deepLink=false, current=section.id) }}
         {% endfor %}
         </ul>
