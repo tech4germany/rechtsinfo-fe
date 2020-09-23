@@ -80,6 +80,7 @@ permalink: "/{{ section.abbreviation | slug }}/{{ section.id }}.html"
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="inhaltsverzeichnis" data-type="inhaltsverzeichnis">
         <h3 class="govuk-heading-m">Nichtamtliches Inhaltsverzeichnis</h3>
+        {{ section.toc | dump }}
         <ul>
         {% for item in section.toc %}
           {{ tableOfContents(item, deepLink=false, current=section.id) }}

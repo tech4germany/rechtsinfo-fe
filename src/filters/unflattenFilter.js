@@ -6,10 +6,21 @@ module.exports = function (content) {
     contentById[item.id] = item
     item.children = []
     if (item.parent === null) {
-      hierarchicalContents.push(item)
+      hierarchicalContents.push({
+        id: item.id,
+        name: item.name,
+        title: item.title,
+        children: item.children,
+      })
     } else {
       parent = contentById[item.parent.id]
-      parent.children.push(item)
+      parent.children.push({
+        id: item.id,
+        name: item.name,
+        title: item.title,
+        parent: item.parent,
+        children: item.children,
+      })
     }
   }
 
