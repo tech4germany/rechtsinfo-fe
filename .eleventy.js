@@ -9,6 +9,7 @@ module.exports = function (config) {
   // config.addCollection("movies", (collection) => {
   //   return [...collection.getFilteredByGlob("./src/movies/**/*.md")];
   // });
+
   config.addNunjucksFilter('lookup', lookupFilter)
   config.addNunjucksFilter('unflatten', unflattenFilter)
   config.addNunjucksFilter('empty', emptyFilter)

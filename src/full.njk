@@ -8,23 +8,26 @@ permalink: "/{{ item.data.abbreviation | slug }}/"
 eleventyComputed:
   title: "{{ item.data.headingLong }}"
 ---
-
+{% from "../node_modules/govuk-frontend/govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "macros/toc.njk" import tableOfContents %}
+{% set home = '/' | url %}
 
 <div class="govuk-width-container">
+
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Start",
+      href: home
+    },
+    {
+      text: item.data.abbreviation,
+      href: "#"
+    }
+  ]
+}) }}
+
   <main class="govuk-main-wrapper">
-  <div class="govuk-breadcrumbs">
-    <ol class="govuk-breadcrumbs__list">
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="{{ '/' | url }}">Start</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <span class="govuk-breadcrumbs__link" >{{
-          item.data.abbreviation
-        }}</span>
-      </li>
-    </ol>
-  </div>
   <section class="content">
     <header>
     {% if item.data.headingShort %}

@@ -7,7 +7,7 @@
     <div class="govuk-grid-row">
       <ul>
       {% for law in laws -%}
-        <li><a href="/{{law.data.abbreviation | slug }}">
+        <li><a href="{{ '/' | url }}{{law.data.abbreviation | slug }}/index.html">
         {% if law.data.headingShort %}{{ law.data.headingShort }}
         {% else %}
         {{ law.data.headingLong }}

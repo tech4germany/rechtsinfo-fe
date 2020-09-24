@@ -1,5 +1,4 @@
 const requireDir = require('require-dir')
-const unflattenFilter = require('../filters/unflattenFilter')
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
@@ -17,7 +16,7 @@ module.exports = function () {
     const articleArray = articles.map((articleItem) => ({
       ...articleItem,
       abbreviation: currentLaw.abbreviation,
-      //statusInfo: currentLaw.statusInfo,
+      statusInfo: currentLaw.statusInfo,
     }))
     sections.push(...articleArray)
   })
