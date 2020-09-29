@@ -7,19 +7,25 @@
     "sass": "sass --style=compressed src/scss/styles.scss src/_includes/css/styles.css",
     "watch:eleventy": "NODE_ENV=development eleventy --serve",
     "watch:sass": "npm run sass -- --watch",
-    "start": "npm-run-all --parallel watch:*",
-    "build": "NODE_ENV=production npm run --node-flags --max_old_space_size=8192 sass && eleventy"
+    "start": "DEBUG=Eleventy* npm-run-all --parallel watch:*",
+    "build": "NODE_ENV=production DEBUG=Eleventy* npm run sass && eleventy"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@11ty/eleventy": "^0.10.0",
+    "axios": "^0.20.0",
+    "chalk": "^4.1.0",
     "cross-env": "^7.0.2",
+    "flat-cache": "^2.0.1",
     "govuk-frontend": "^3.8.1",
+    "node-stream-zip": "^1.11.3",
     "npm-run-all": "^4.1.5",
+    "path": "^0.12.7",
     "require-dir": "^1.2.0",
     "sass": "^1.26.10",
-    "slugify": "^1.4.5"
+    "slugify": "^1.4.5",
+    "stream-json": "^1.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",

@@ -4,9 +4,9 @@ pagination:
   alias: item
   size: 1
 layout: main
-permalink: "/{{ item.data.abbreviation | slug }}/"
+permalink: "{{ item.abbreviation | slug }}/{{ item.id }}.html"
 eleventyComputed:
-  title: "{{ item.data.headingLong }}"
+  title: "{{ item.titleLong }}"
 ---
 {% from "../node_modules/govuk-frontend/govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "macros/toc.njk" import tableOfContents %}
@@ -21,7 +21,7 @@ eleventyComputed:
       href: home
     },
     {
-      text: item.data.abbreviation,
+      text: item.abbreviation,
       href: "#"
     }
   ]
@@ -30,11 +30,11 @@ eleventyComputed:
   <main class="govuk-main-wrapper">
   <section class="content">
     <header>
-    {% if item.data.headingShort %}
-      <h1>{{ item.data.headingShort }}</h1>
-      <span class="govuk-caption-xl">{{ item.data.headingLong | safe }}</span>
+    {% if item.titleShort %}
+      <h1>{{ item.titleShort }}</h1>
+      <span class="govuk-caption-xl">{{ item.titleLong | safe }}</span>
       {% else %}
-      <h1>{{ item.data.headingLong }}</h1>
+      <h1>{{ item.titleLong }}</h1>
     {% endif %}
     </header>
   
@@ -58,29 +58,30 @@ eleventyComputed:
       </ul>
 
       <div class="govuk-tabs__panel" id="text">
-        {% for section in item.data.contents %}
+        {% for section in item.contents %}
         <article id ="{{ section.id }}">
-          {% if section.type === "heading" %}
-              <h3 class="subheading" id>{{section.name | safe }}<br/>
+          {% if section.type === "title" %}
+              <h3 class="subtitle" id>{{section.name | safe }}<br/>
               {{ section.title | safe }}</h3>
-              {% if section.body.content %}
-                {{ section.body.content | safe }}
+              {% if section.body %}
+                {{ section.body | safe }}
               {% endif %}
           {% elif section.type === "article" %}
               <h3 class="article-name"><a href="{{section.id}}.html"><span class="accent-gray">{{section.name}}</span> {{ section.title | safe }}</a></h3>
-              <p>{{ section.body.content | safe }}</p>
+              <p>{{ section.body | safe }}</p>
           {% endif %}
         </article>
         {% endfor %}
       </div>
 
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="inhaltsverzeichnis" data-type="inhaltsverzeichnis">
-        <h3 class="govuk-heading-m">Nichtamtliches Inhaltsverzeichnis</h3>
-        {% set slug = item.data.abbreviation | slug %}
-        {% set test = tocList | lookup(slug) %}
+        <h3 class="govuk-title-m">Nichtamtliches Inhaltsverzeichnis</h3>
+
+        {# {% set slug = item.abbreviation | slug %}
+        {% set test = tocList | lookup(slug) %} #}
         <ul>
-        {% for item in test %}
-          {{ tableOfContents(item, deepLink=true, current='') }}
+        {% for heading in item.contents | unflatten %}
+          {{ tableOfContents(heading, deepLink=true, current='') }}
         {% endfor %}
         </ul>
       </div>
@@ -94,10 +95,10 @@ eleventyComputed:
 
         <div class="info">
           <i class="fas fa-font"></i>
-          <p class="">Abkürzung: {{ item.data.abbreviation }}</p>
+          <p class="">Abkürzung: {{ item.abbreviation }}</p>
         </div>
         
-        {% for status in item.data.statusInfo %}
+        {% for status in item.statusInfo %}
           {% if status.category === "Stand" %}
             <div class="info">
               <i class="fas fa-calendar-check"></i>

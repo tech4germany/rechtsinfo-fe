@@ -1,31 +1,8 @@
 @import 'normalize';
 @import 'variables';
+@import 'fonts';
 @import '../../node_modules/govuk-frontend/govuk/all';
 @import 'fontawesome/fontawesome.scss';
-
-@font-face {
-  font-family: 'Bundes Serif';
-  src: url('{{ url }}/assets/fonts/bundes-serif/BundesSerif-Web-Regular.eot');
-  src: url('{{ url }}/assets/fonts/bundes-serif/BundesSerif-Web-Regular.eot?#iefix')
-      format('embedded-opentype'),
-    url('{{ url }}/assets/fonts/bundes-serif/BundesSerif-Web-Regular.woff')
-      format('woff'),
-    url('{{ url }}/assets/fonts/bundes-serif/BundesSerif-Web-Regular.ttf')
-      format('truetype');
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: 'Bundes Serif';
-  src: url('{{ url }}/assets/fonts/bundes-serif/BundesSerif-Web-Bold.eot');
-  src: url('{{ url }}/assets/fonts/bundes-serif/BundesSerif-Web-Bold.eot?#iefix')
-      format('embedded-opentype'),
-    url('{{ url }}/assets/fonts/bundes-serif/BundesSerif-Web-Bold.woff')
-      format('woff'),
-    url('{{ url }}/assets/fonts/bundes-serif/BundesSerif-Web-Bold.ttf')
-      format('truetype');
-  font-weight: 600;
-}
 
 html,
 body {

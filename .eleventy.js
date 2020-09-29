@@ -5,11 +5,6 @@ const lookupFilter = require('./src/filters/lookupFilter')
 module.exports = function (config) {
   config.addPassthroughCopy('src/js')
   config.addPassthroughCopy('src/assets')
-
-  // config.addCollection("movies", (collection) => {
-  //   return [...collection.getFilteredByGlob("./src/movies/**/*.md")];
-  // });
-
   config.addNunjucksFilter('lookup', lookupFilter)
   config.addNunjucksFilter('unflatten', unflattenFilter)
   config.addNunjucksFilter('empty', emptyFilter)
