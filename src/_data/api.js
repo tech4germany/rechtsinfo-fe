@@ -35,7 +35,13 @@ async function getLawList() {
   // load cache
   const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
   const cachedItems = cache.getKey(CACHE_KEY)
-
+  console.log('--------------------')
+  console.log(cachedItems.length)
+  var result = cachedItems.filter((obj) => {
+    return obj.id === 'BJNR239600993'
+  })
+  console.log(result)
+  console.log('--------------------')
   // if we have a cache, return cached data
   if (cachedItems) {
     console.log(chalk.blue('Blogposts from cache'))
@@ -67,7 +73,6 @@ async function getLawList() {
   // resolve all additional requests in parallel
   const allResponses = await Promise.all(requests)
   allResponses.map((response) => {
-    console.log(response)
     apiData.push(...response.data)
   })
 
@@ -78,14 +83,16 @@ async function getLawList() {
       .localeCompare(b.abbreviation.toLowerCase())
   })
 
+  let list = Array.from(new Set(apiData))
+
   // set and save cache
-  if (apiData.length) {
-    cache.setKey(CACHE_KEY, apiData)
+  if (list.length) {
+    cache.setKey(CACHE_KEY, list)
     cache.save()
   }
 
   // return data
-  return apiData
+  return list
 }
 
 // export for 11ty

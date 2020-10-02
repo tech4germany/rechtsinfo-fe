@@ -16,25 +16,14 @@ const flatCache = require('flat-cache')
 const CACHE_KEY = 'laws'
 const CACHE_FOLDER = path.resolve('./.cache')
 const CACHE_FILE = 'laws.json'
-// const laws = isDevelopment
-//   ? requireDir(__dirname + '/multiple/')
-//   : requireDir(__dirname + '/multiple/')
 
-// async function getLaws() {
-//   const laws = []
-//   console.log
-//   const pipeline = fs
-//     .createReadStream(__dirname + '/extracted.json')
-//     .pipe(StreamArray.withParser())
-//   pipeline.on('data', ({ key, value }) => {
-//     laws.push(value)
-//   })
-
-//   pipeline.on('end', (data) => {
-//     console.log('done')
-//     return laws
-//   })
-// }
+function splitToChunks(items, chunkSize = 50) {
+  const result = []
+  for (let i = 0; i < items.length; i += chunkSize) {
+    result.push(items.slice(i, i + chunkSize))
+  }
+  return result
+}
 
 async function requestLaw(base) {
   const url = base + '?include=contents'
@@ -49,7 +38,28 @@ async function requestLaw(base) {
   }
 }
 
+const mapSeries = async (iterable) => {
+  let apiData = []
+  for (const x of iterable) {
+    console.log('filling a new request array')
+    // for group of urls in group
+    let requests = []
+    x.map((item, key) => {
+      // map array in group of arrays
+      const request = requestLaw(item.url)
+      requests.push(request)
+    })
+    const allResponses = await Promise.all(requests)
+    console.log(allResponses.length)
+    allResponses.map((response) => {
+      apiData.push(response.data)
+    })
+  }
+  return apiData
+}
+
 module.exports = async function () {
+  let apiData = []
   // load cache
   const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
   const cachedItems = cache.getKey(CACHE_KEY)
@@ -57,31 +67,20 @@ module.exports = async function () {
   // if we have a cache, return cached data
   if (cachedItems) {
     console.log(chalk.blue('Blogposts from cache'))
-    return cachedItems
+    let laws = cachedItems.filter(
+      (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+    )
+    return laws
   }
 
   // if we do not, make queries
   console.log(chalk.blue('Blogposts from API'))
 
-  let laws = []
-  let requests = []
-  let apiData = []
-
   const list = await getLawList()
-
-  list.map((item, key) => {
-    if (key < 50) {
-      const request = requestLaw(item.url)
-      requests.push(request)
-    }
-    return
-  })
-
-  const allResponses = await Promise.all(requests)
-  allResponses.map((response) => {
-    apiData.push(response.data)
-  })
-
+  //const list = []
+  const groups = splitToChunks(list)
+  // returns an array of 131 arrays with all of the links
+  apiData = await mapSeries(groups)
   // set and save cache
   if (apiData.length) {
     cache.setKey(CACHE_KEY, apiData)

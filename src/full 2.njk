@@ -1,0 +1,123 @@
+---
+pagination:
+  data: laws
+  alias: item
+  size: 1
+layout: main
+permalink: "{{ item.slug }}/{{ item.id }}.html"
+eleventyComputed:
+  title: "{{ item.titleLong }}"
+---
+{% from "../node_modules/govuk-frontend/govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "macros/toc.njk" import tableOfContents %}
+{% set home = '/' | url %}
+
+<div class="govuk-width-container">
+
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "Start",
+      href: home
+    },
+    {
+      text: item.abbreviation,
+      href: "#"
+    }
+  ]
+}) }}
+
+  <main class="govuk-main-wrapper">
+  <section class="content">
+    <header>
+    {% if item.titleShort %}
+      <h1>{{ item.titleShort }}</h1>
+      <span class="govuk-caption-xl">{{ item.titleLong | safe }}</span>
+      {% else %}
+      <h1>{{ item.titleLong }}</h1>
+    {% endif %}
+    </header>
+  
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#text">
+            <i class="fas fa-landmark"></i> Gesetz
+          </a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#inhaltsverzeichnis">
+            <i class="fas fa-stream"></i> Inhaltsverzeichnis
+          </a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#weitere-informationen">
+            <i class="fas fa-info-circle"></i> Weitere Informationen
+          </a>
+        </li>
+      </ul>
+
+      <div class="govuk-tabs__panel" id="text">
+      {% if item.contents | length %}
+        {% for section in item.contents %}
+        <article id ="{{ section.id }}">
+          {% if section.type === "title" %}
+              <h3 class="subtitle" id>{{section.name | safe }}<br/>
+              {{ section.title | safe }}</h3>
+              {% if section.body %}
+                {{ section.body | safe }}
+              {% endif %}
+          {% elif section.type === "article" %}
+              <h3 class="article-name"><a href="{{section.id}}.html"><span class="accent-gray">{{section.name}}</span> {{ section.title | safe }}</a></h3>
+              <p>{{ section.body | safe }}</p>
+          {% endif %}
+        </article>
+        {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="inhaltsverzeichnis" data-type="inhaltsverzeichnis">
+        <h3 class="govuk-title-m">Nichtamtliches Inhaltsverzeichnis</h3>
+
+        {# {% set slug = item.abbreviation | slug %}
+        {% set test = tocList | lookup(slug) %} #}
+        {% if item.contents | length %}
+        <ul>
+        {% for heading in item.contents | unflatten %}
+          {{ tableOfContents(heading, deepLink=true, current='') }}
+        {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="weitere-informationen">
+
+        <div class="info current">
+          <i class="fas fa-check"></i>
+          <p class="">Aktuelle Version</p>
+        </div>
+
+        <div class="info">
+          <i class="fas fa-font"></i>
+          <p class="">Abkürzung: {{ item.abbreviation }}</p>
+        </div>
+        
+        {% for status in item.statusInfo %}
+          {% if status.category === "Stand" %}
+            <div class="info">
+              <i class="fas fa-calendar-check"></i>
+              <p class="">Stand: {{ status.comment }}</p>
+            </div>
+          {% elif status.category === "Hinweis" %}
+            <div class="info">
+              <i class="fas fa-exclamation-circle"></i>
+              <p class="">Hinweis: {{ status.comment }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+        
+      </div>
+    </div>
+    </section>
+  </main>
+</div>
