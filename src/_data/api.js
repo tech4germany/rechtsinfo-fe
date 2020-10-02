@@ -35,13 +35,6 @@ async function getLawList() {
   // load cache
   const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
   const cachedItems = cache.getKey(CACHE_KEY)
-  console.log('--------------------')
-  console.log(cachedItems.length)
-  var result = cachedItems.filter((obj) => {
-    return obj.id === 'BJNR239600993'
-  })
-  console.log(result)
-  console.log('--------------------')
   // if we have a cache, return cached data
   if (cachedItems) {
     console.log(chalk.blue('Blogposts from cache'))
