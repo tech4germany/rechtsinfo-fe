@@ -87,5 +87,9 @@ module.exports = async function () {
     cache.save()
   }
 
-  return apiData
+  let laws = apiData.filter(
+    (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+  )
+
+  return laws
 }
