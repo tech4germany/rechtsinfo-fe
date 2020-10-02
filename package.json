@@ -8,7 +8,7 @@
     "watch:eleventy": "NODE_ENV=development eleventy --serve",
     "watch:sass": "npm run sass -- --watch",
     "start": "DEBUG=Eleventy* npm-run-all --parallel watch:*",
-    "build": "NODE_ENV=production DEBUG=Eleventy* npm run sass && eleventy"
+    "build": "NODE_ENV=production npm run sass && eleventy"
   },
   "author": "",
   "license": "ISC",
