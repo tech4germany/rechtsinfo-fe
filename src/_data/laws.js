@@ -1,12 +1,6 @@
-const requireDir = require('require-dir')
-const StreamArray = require('stream-json/streamers/StreamArray')
-const fs = require('fs')
-const isDevelopment = process.env.NODE_ENV === 'development'
-const getLawList = require('./api')
-const { pick } = require('stream-json/filters/Pick')
-const { parser } = require('stream-json/Parser')
-const { chain } = require('stream-chain')
-const { streamValues } = require('stream-json/streamers/StreamValues')
+const isDevelopment = process.env.ELEVENTY_ENV === 'development'
+const getLawList = require('./lawList')
+const mocks = require('./mocks')
 
 const axios = require('axios')
 const path = require('path')
@@ -41,16 +35,14 @@ async function requestLaw(base) {
 const mapSeries = async (iterable) => {
   let apiData = []
   for (const x of iterable) {
-    console.log('filling a new request array')
     // for group of urls in group
     let requests = []
-    x.map((item, key) => {
+    x.map((item) => {
       // map array in group of arrays
       const request = requestLaw(item.url)
       requests.push(request)
     })
     const allResponses = await Promise.all(requests)
-    console.log(allResponses.length)
     allResponses.map((response) => {
       apiData.push(response.data)
     })
@@ -59,6 +51,9 @@ const mapSeries = async (iterable) => {
 }
 
 module.exports = async function () {
+  // if in development, return a reduced list of laws
+  if (isDevelopment) return mocks
+
   let apiData = []
   // load cache
   const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
@@ -73,9 +68,6 @@ module.exports = async function () {
     return laws
   }
 
-  // if we do not, make queries
-  console.log(chalk.blue('Blogposts from API'))
-
   const list = await getLawList()
   //const list = []
   const groups = splitToChunks(list)
@@ -87,6 +79,7 @@ module.exports = async function () {
     cache.save()
   }
 
+  // TODO: remove once API returns unique values
   let laws = apiData.filter(
     (v, i, a) => a.findIndex((t) => t.id === v.id) === i
   )

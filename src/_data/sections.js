@@ -1,13 +1,3 @@
-const requireDir = require('require-dir')
-const StreamArray = require('stream-json/streamers/StreamArray')
-const fs = require('fs')
-const { pick } = require('stream-json/filters/Pick')
-const { parser } = require('stream-json/Parser')
-const { chain } = require('stream-chain')
-const { streamValues } = require('stream-json/streamers/StreamValues')
-
-const isDevelopment = process.env.NODE_ENV === 'development'
-
 // const laws = isDevelopment
 //   ? requireDir(__dirname + '/test/')
 //   : requireDir(__dirname + '/multiple/')

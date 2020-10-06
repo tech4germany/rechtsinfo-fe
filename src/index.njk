@@ -5,7 +5,7 @@
   <main class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <ul>
-      {% for law in api -%}
+      {% for law in lawList -%}
         <li><a href="{{ '/' | url }}{{ law.slug }}/{{law.id}}.html">
         {% if law.titleShort %}{{ law.titleShort }}
         {% else %}
