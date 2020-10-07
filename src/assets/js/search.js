@@ -3,8 +3,13 @@ const SEARCH_URL = 'https://api.rechtsinformationsportal.de/search?q='
 const RESULTS_PER_PAGE = 10
 const slugRegex = /laws\/(.*)\/article/ // regex to get slug in article url
 const origin = window.location.origin
-const searchForm = document.getElementById('search')
-const searchInput = document.getElementById('search-input')
+const searchForm = document.getElementById('search-bar')
+const searchInput = document.getElementById('search-bar__input')
+
+// remove html tags from strings
+const removeTags = (string) => {
+  string && string.length ? string.replace(/(<([^>]+)>)/gi, '') : string
+}
 
 const search = (e) => {
   // fetch using query params
@@ -14,7 +19,7 @@ const search = (e) => {
   window.location.href = origin + '/suche/?query=' + query
 }
 
-function displayResults(response) {
+const displayResults = (response) => {
   //display first 10 results + pagination
   const resEl = document.getElementById('search-results')
   const total = response.pagination.total
@@ -29,13 +34,14 @@ function displayResults(response) {
     // open in new tab?
     let url = ''
     if (entry.type === 'article') {
-      a.textContent = entry.name + ' ' + entry.title
+      a.textContent = entry.name
+      if (entry.title) a.textContent += ` ${entry.title}`
       const slug = entry.url.match(slugRegex)
       url = origin + '/' + slug[1] + '/index.html#' + entry.id
     } else if (entry.type === 'law') {
       a.textContent = entry.titleShort || entry.titleLong
       if (entry.titleShort) a.innerHTML += `<br/>${entry.titleLong}`
-      url = origin + '/' + entry.slug + '/'
+      url = origin + '/' + entry.slug + '/index.html'
     }
     console.log(url)
     a.setAttribute('href', url)
@@ -43,7 +49,7 @@ function displayResults(response) {
   })
 }
 
-async function fetchResults(query) {
+const fetchResults = async (query) => {
   const url = SEARCH_URL + query
   try {
     const response = await axios.get(url)

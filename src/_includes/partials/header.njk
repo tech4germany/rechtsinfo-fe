@@ -7,7 +7,7 @@
         <image src="/assets/images/logo-bmjv.png" xlink:href="" alt="Logo des Bundesministeriums der Justiz und für Verbraucherschutz." ></image>
       </a>
     </div>
-    <div>
+    <div class="search-bar__container">
     {# {{ govukInput({
       label: {
         text: "Suche",
@@ -18,18 +18,7 @@
       name: "search"
     }) }} #}
 
-    <form role='search' action="/" method="get" id="search">
-      <label for='search'>
-        <span class='visually-hidden'>Suche</span>
-      </label>
-
-      <input type='text' id='search-input'/>
-
-      <button type='submit'>
-      <i class="fas fa-search"></i>
-        <span class='visually-hidden'>Suchen</span>
-      </button>
-    </form>
+    {% include "./searchBar.njk" %}
     </div>
   </div>
 </header>

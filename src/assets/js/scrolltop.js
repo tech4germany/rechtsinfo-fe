@@ -1,5 +1,4 @@
 const scrollTop = () => {
-  console.log('hello')
   const scrollToTopBtn = document.getElementById('scroll-to-top')
   const rootElement = document.documentElement
   const scrollOptions = { top: 0, behavior: 'smooth' }
