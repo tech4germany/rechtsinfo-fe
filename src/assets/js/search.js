@@ -35,7 +35,7 @@ function displayResults(response) {
     } else if (entry.type === 'law') {
       a.textContent = entry.titleShort || entry.titleLong
       if (entry.titleShort) a.innerHTML += `<br/>${entry.titleLong}`
-      url = origin + '/' + entry.slug
+      url = origin + '/' + entry.slug + '/'
     }
     console.log(url)
     a.setAttribute('href', url)
