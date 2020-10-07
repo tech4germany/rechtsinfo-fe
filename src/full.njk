@@ -4,8 +4,9 @@ pagination:
   alias: item
   size: 1
 layout: main
-permalink: "{{ item.slug }}/{{ item.id }}.html"
-eleventyComputed:
+permalink: "{{ item.slug }}/index.html"
+title: {{ item.titleLong }}
+renderData:
   title: "{{ item.titleLong }}"
 ---
 {% from "../node_modules/govuk-frontend/govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
@@ -68,7 +69,7 @@ eleventyComputed:
                 {{ section.body | safe }}
               {% endif %}
           {% elif section.type === "article" %}
-              <h3 class="article-name"><a href="{{section.id}}.html"><span class="accent-gray">{{section.name}}</span> {{ section.title | safe }}</a></h3>
+              <h2 class="article-name"><a href="{{section.id}}.html"><span class="accent-gray">{{section.name}}</span> {{ section.title | safe }}</a></h2>
               <p>{{ section.body | safe }}</p>
           {% endif %}
         </article>

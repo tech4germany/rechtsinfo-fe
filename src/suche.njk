@@ -1,0 +1,37 @@
+{% extends 'layouts/main.njk' %}
+{% set title = "Rechtsinformationsportal" %}
+{% block content %}
+{% from "../node_modules/govuk-frontend/govuk/components/tabs/macro.njk" import govukTabs %}
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper">
+    <section class="content">
+    {{ govukTabs({
+  items: [
+    {
+      label: "Alle Suchergebnisse",
+      id: "all-results",
+      panel: {
+        html: "<ul id='search-results'></ul>"
+      }
+    },
+    {
+      label: "Gesetze und Verordnungen",
+      id: "tab-2",
+      panel: {
+        html: "<div class='test'></div>"
+      }
+    },
+    {
+      label: "Paragrafen",
+      id: "tab-3",
+      panel: {
+        html: "<div class='test'></div>"
+      }
+    }
+    
+  ]
+}) }}
+    </section>
+  </main>
+</div>
+{% endblock %}

@@ -8,6 +8,7 @@
     url('/assets/fonts/bundes-serif/BundesSerif-Web-Regular.ttf')
       format('truetype');
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
@@ -19,4 +20,5 @@
     url('/assets/fonts/bundes-serif/BundesSerif-Web-Bold.ttf')
       format('truetype');
   font-weight: 600;
+  font-display: swap;
 }

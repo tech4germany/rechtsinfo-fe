@@ -6,7 +6,7 @@
     <div class="govuk-grid-row">
       <ul>
       {% for law in lawList -%}
-        <li><a href="{{ '/' | url }}{{ law.slug }}/{{law.id}}.html">
+        <li><a href="{{ '/' | url }}{{ law.slug }}/index.html">
         {% if law.titleShort %}{{ law.titleShort }}
         {% else %}
         {{ law.titleLong }}
