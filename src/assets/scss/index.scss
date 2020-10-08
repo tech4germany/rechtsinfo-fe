@@ -127,6 +127,11 @@ dt + la {
   left: -9999px !important;
 }
 
+article img {
+  max-width: 100%;
+  height: auto;
+}
+
 // TYPO
 
 h1,

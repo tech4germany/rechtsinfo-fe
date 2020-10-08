@@ -19,11 +19,31 @@ function splitToChunks(items, chunkSize = 50) {
   return result
 }
 
+const replaceLinks = (data) => {
+  // contents is an array of objects
+  let newContents = data.contents.map((contentItem) => {
+    // check if contentItem.body contains a string in the attachments object
+    Object.entries(data.attachments).forEach(([key, value]) => {
+      if (contentItem.body && contentItem.body.includes(key)) {
+        contentItem.body = contentItem.body.replace(key, value)
+        return contentItem
+      }
+    })
+    return contentItem
+  })
+  return newContents
+}
+
 async function requestLaw(base) {
   const url = base + '?include=contents'
   try {
     const response = await axios.get(url)
-    // return the total number of items to fetch and the data
+    const item = response.data.data
+    const hasAssets = item.attachments
+    // if item has attachments, replace all images in the contents with absolute paths to s3 bucket
+    response.data.data.contents = hasAssets
+      ? replaceLinks(item)
+      : response.data.data.contents
     return response.data
   } catch (err) {
     console.log(err)
@@ -69,9 +89,8 @@ module.exports = async function () {
   }
 
   const list = await getLawList()
-  //const list = []
   const groups = splitToChunks(list)
-  // returns an array of 131 arrays with all of the links
+  // returns an array of 131 arrays with 50 requests each
   apiData = await mapSeries(groups)
   // set and save cache
   if (apiData.length) {
