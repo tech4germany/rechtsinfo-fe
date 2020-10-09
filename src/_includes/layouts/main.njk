@@ -5,21 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{ renderData.title or title or metadata.title }}</title>
-    <link rel="stylesheet" href="/assets/main.css" />
+    <link rel="stylesheet" href="/assets/main.css?{{ '' | currentDate }}" />
   </head>
-  <body class="govuk-template__body ">
+  <body class="govuk-template__body">
     <script>
       document.body.className = document.body.className
-        ? document.body.className + " js-enabled"
-        : "js-enabled";
+        ? document.body.className + ' js-enabled'
+        : 'js-enabled'
     </script>
+    {% include "../partials/disclaimer.njk" %} {% include
+    "../partials/header.njk" %}
     <div class="govuk-width-container">
-      {% include "../partials/header.njk" %}
-      {{ content | safe }}
-      {% block content %}{% endblock content %}
-      <button id="scroll-to-top">Nach oben <i class="fas fa-arrow-up"></i></button>
+      <main class="govuk-main-wrapper">
+        {{ content | safe }}
+        {% block content %}{% endblock content %}
+        <button id="scroll-to-top">
+          Nach oben <i class="fas fa-arrow-up"></i>
+        </button>
+      </main>
     </div>
-      <script src="/assets/vendor.js"></script>
-      <script src="/assets/main.js"></script>
+    <script src="/assets/vendor.js"></script>
+    <script src="/assets/main.js"></script>
   </body>
 </html>

@@ -6,7 +6,7 @@
   "scripts": {
     "build:assets": "webpack --config webpack.config.prod.js",
     "build:site": "ELEVENTY_ENV=production npx eleventy",
-    "dev:assets": "webpack --config webpack.config.dev.js",
+    "dev:assets": "webpack --config webpack.config.dev.js --watch",
     "dev:site": "ELEVENTY_ENV=development npx eleventy --serve",
     "del:build": "rimraf ./_site",
     "dev": "npm-run-all --parallel dev:assets dev:site",
@@ -34,7 +34,8 @@
     "babel-loader": "8.1.0",
     "core-js": "3.6.5",
     "css-loader": "4.3.0",
-    "eslint": "^7.9.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
     "fibers": "5.0.0",
     "html-minifier": "4.0.0",
     "mini-css-extract-plugin": "0.11.3",

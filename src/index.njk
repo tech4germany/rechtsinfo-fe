@@ -1,20 +1,10 @@
-{% extends 'layouts/main.njk' %}
-{% set title = "Rechtsinformationsportal" %}
-{% block content %}
-<div class="govuk-width-container">
-  <main class="govuk-main-wrapper">
-    <div class="govuk-grid-row">
-      <ul>
-      {% for law in lawList -%}
-        <li><a href="{{ '/' | url }}{{ law.slug }}/index.html">
-        {% if law.titleShort %}{{ law.titleShort }}
-        {% else %}
-        {{ law.titleLong }}
-        {% endif %}
-        ({{law.abbreviation}})</a></li>
-      {% endfor -%}
-      </ul>
-    </div>
-  </main>
+{% extends 'layouts/main.njk' %} {% set title = "Rechtsinformationsportal" %} {%
+block content %}
+<div class="intro-text">
+  <h1>Rechtsinformationsportal</h1>
+  <h2>Alle aktuellen Gesetze und Verordnungen des Bundes.</h2>
+  <div class="search-bar__container-home">
+    {% include "./_includes/partials/searchBar.njk" %}
+  </div>
 </div>
 {% endblock %}

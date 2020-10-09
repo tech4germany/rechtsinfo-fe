@@ -7,6 +7,9 @@ module.exports = function (config) {
   config.addNunjucksFilter('lookup', lookupFilter)
   config.addNunjucksFilter('unflatten', unflattenFilter)
   config.addNunjucksFilter('empty', emptyFilter)
+  config.addFilter('currentDate', function () {
+    return Date.now()
+  })
 
   config.addWatchTarget('./src/compiled-assets/main.css')
   config.addWatchTarget('./src/compiled-assets/main.js')

@@ -1,6 +1,8 @@
 const axios = require('axios')
+
 const SEARCH_URL = 'https://api.rechtsinformationsportal.de/search?q='
 const RESULTS_PER_PAGE = 10
+
 const slugRegex = /laws\/(.*)\/article/ // regex to get slug in article url
 const origin = window.location.origin
 const searchForm = document.getElementById('search-bar')
@@ -43,7 +45,6 @@ const displayResults = (response) => {
       if (entry.titleShort) a.innerHTML += `<br/>${entry.titleLong}`
       url = origin + '/' + entry.slug + '/index.html'
     }
-    console.log(url)
     a.setAttribute('href', url)
     h2.appendChild(a)
   })

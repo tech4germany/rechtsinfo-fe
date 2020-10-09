@@ -1,12 +1,14 @@
-<form role='search' action="/" method="get" id="search-bar">
-      <label for='search'>
-        <span class='visually-hidden'>Suche</span>
-      </label>
-
-      <input type='text' id='search-bar__input' placeholder="Suchbegriff eingeben" />
-
-      <button type='submit'>
-      <i class="fas fa-search"></i>
-        <span class='visually-hidden'>Suchen</span>
-      </button>
-    </form>
+<form role="search" action="/" method="get" id="search-bar">
+  <label for="search">
+    <span class="visually-hidden">Suche</span>
+  </label>
+  {% if page.url === "/" %} {% set placeholder = "Stichwort, Bundesgesetz,
+  Abkürzung..." %} {% else %} {% set placeholder = "Suchbegriff eingeben" %} {%
+  endif %}
+  <label for="search-bar__input"> </label>
+  <input type="text" id="search-bar__input" placeholder="{{ placeholder }}" />
+  <button type="submit">
+    <i class="fas fa-search"></i>
+    <span class="visually-hidden">Suchen</span>
+  </button>
+</form>

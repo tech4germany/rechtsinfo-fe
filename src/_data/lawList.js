@@ -1,8 +1,7 @@
 const axios = require('axios')
 const path = require('path')
-const chalk = require('chalk')
 const flatCache = require('flat-cache')
-const mocks = require('./mocks')
+
 const isDevelopment = process.env.ELEVENTY_ENV === 'development'
 
 const ITEMS_PER_REQUEST = 100
@@ -11,41 +10,26 @@ const CACHE_KEY = 'lawList'
 const CACHE_FOLDER = path.resolve('./.cache')
 const CACHE_FILE = 'lawList.json'
 
-/**
- * Request list of laws
- */
 async function requestLaws(page = 1) {
   try {
     const url = `${BASE_API_URL}/laws?per_page=${ITEMS_PER_REQUEST}&page=${page}`
     const response = await axios.get(url)
-    // return the total number of items to fetch and the data
-    console.log(response)
     return response.data
   } catch (err) {
     console.log(err)
-    console.error(chalk.red('API not responding, no data returned'))
     return []
   }
 }
 
-/**
- * Get all laws
- * - check if we have a cache
- * - if not make api requests and create cache
- */
 async function getLawList() {
-  if (isDevelopment) return mocks
   // load cache
   const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
   const cachedItems = cache.getKey(CACHE_KEY)
+
   // if we have a cache, return cached data
   if (cachedItems) {
-    console.log(chalk.blue('Blogposts from cache'))
     return cachedItems
   }
-
-  // if we do not, make queries
-  console.log(chalk.blue('Blogposts from API'))
 
   // variables
   let requests = []
@@ -57,7 +41,9 @@ async function getLawList() {
   apiData.push(...request.data)
 
   // calculate how many additional requests we need
-  additionalRequests = Math.ceil(request.pagination.total / ITEMS_PER_REQUEST)
+  additionalRequests = isDevelopment
+    ? 0
+    : Math.ceil(request.pagination.total / ITEMS_PER_REQUEST)
 
   // create additional requests
   for (let i = 2; i <= additionalRequests; i++) {
@@ -79,16 +65,14 @@ async function getLawList() {
       .localeCompare(b.abbreviation.toLowerCase())
   })
 
-  let list = Array.from(new Set(apiData))
-
   // set and save cache
-  if (list.length) {
-    cache.setKey(CACHE_KEY, list)
+  if (apiData.length) {
+    cache.setKey(CACHE_KEY, apiData)
     cache.save()
   }
 
   // return data
-  return list
+  return apiData
 }
 
 // export for 11ty

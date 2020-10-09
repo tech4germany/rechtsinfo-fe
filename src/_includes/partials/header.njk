@@ -1,24 +1,19 @@
-{% from "../../../node_modules/govuk-frontend/govuk/components/input/macro.njk" import govukInput %}
-
 <header class="t4g-header" role="banner" data-module="t4g-header">
   <div class="t4g-header__container govuk-width-container">
     <div class="t4g-header__logo">
-      <a href="{{ '/' | url }}" class="t4g-header__link t4g-header__link--homepage">
-        <image src="/assets/images/logo-bmjv.png" xlink:href="" alt="Logo des Bundesministeriums der Justiz und für Verbraucherschutz." ></image>
+      <a
+        href="{{ '/' | url }}"
+        class="t4g-header__link t4g-header__link--homepage"
+      >
+        <image
+          src="/assets/images/logo-bmjv.png"
+          xlink:href=""
+          alt="Logo des Bundesministeriums der Justiz und für Verbraucherschutz."
+        ></image>
       </a>
     </div>
     <div class="search-bar__container">
-    {# {{ govukInput({
-      label: {
-        text: "Suche",
-        classes: "govuk-label--s",
-        isPageHeading: true
-      },
-      id: "search",
-      name: "search"
-    }) }} #}
-
-    {% include "./searchBar.njk" %}
+      {% if page.url !== "/" %} {% include "./searchBar.njk" %} {% endif %}
     </div>
   </div>
 </header>

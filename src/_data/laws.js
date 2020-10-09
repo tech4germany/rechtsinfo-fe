@@ -1,10 +1,7 @@
-const isDevelopment = process.env.ELEVENTY_ENV === 'development'
 const getLawList = require('./lawList')
-const mocks = require('./mocks')
 
 const axios = require('axios')
 const path = require('path')
-const chalk = require('chalk')
 const flatCache = require('flat-cache')
 
 const CACHE_KEY = 'laws'
@@ -19,10 +16,10 @@ function splitToChunks(items, chunkSize = 50) {
   return result
 }
 
-const replaceLinks = (data) => {
+const replaceAttachments = (data) => {
   // contents is an array of objects
   let newContents = data.contents.map((contentItem) => {
-    // check if contentItem.body contains a string in the attachments object
+    // check if contentItem.body contains an attachment
     Object.entries(data.attachments).forEach(([key, value]) => {
       if (contentItem.body && contentItem.body.includes(key)) {
         contentItem.body = contentItem.body.replace(key, value)
@@ -42,12 +39,11 @@ async function requestLaw(base) {
     const hasAssets = item.attachments
     // if item has attachments, replace all images in the contents with absolute paths to s3 bucket
     response.data.data.contents = hasAssets
-      ? replaceLinks(item)
+      ? replaceAttachments(item)
       : response.data.data.contents
     return response.data
   } catch (err) {
     console.log(err)
-    console.error(chalk.red('API not responding, no data returned'))
     return []
   }
 }
@@ -71,9 +67,6 @@ const mapSeries = async (iterable) => {
 }
 
 module.exports = async function () {
-  // if in development, return a reduced list of laws
-  if (isDevelopment) return mocks
-
   let apiData = []
   // load cache
   const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
@@ -81,17 +74,19 @@ module.exports = async function () {
 
   // if we have a cache, return cached data
   if (cachedItems) {
-    console.log(chalk.blue('Blogposts from cache'))
     let laws = cachedItems.filter(
       (v, i, a) => a.findIndex((t) => t.id === v.id) === i
     )
     return laws
   }
 
+  // await list of laws from API
   const list = await getLawList()
+  // split all requests into arrays of 50 requests each
   const groups = splitToChunks(list)
-  // returns an array of 131 arrays with 50 requests each
+  // await all responses
   apiData = await mapSeries(groups)
+
   // set and save cache
   if (apiData.length) {
     cache.setKey(CACHE_KEY, apiData)
