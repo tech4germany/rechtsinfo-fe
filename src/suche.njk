@@ -1,37 +1,51 @@
-{% extends 'layouts/main.njk' %}
-{% set title = "Suchergebnisse" %}
-{% block content %}
-{% from "../node_modules/govuk-frontend/govuk/components/tabs/macro.njk" import govukTabs %}
-<div class="govuk-width-container">
-  <main class="govuk-main-wrapper">
-    <section class="content">
-    {{ govukTabs({
-  items: [
-    {
-      label: "Alle Suchergebnisse",
-      id: "all-results",
-      panel: {
-        html: "<ul id='search-results'></ul>"
-      }
-    },
-    {
-      label: "Gesetze und Verordnungen",
-      id: "tab-2",
-      panel: {
-        html: "<div class='test'></div>"
-      }
-    },
-    {
-      label: "Paragrafen",
-      id: "tab-3",
-      panel: {
-        html: "<div class='test'></div>"
-      }
-    }
-    
-  ]
-}) }}
-    </section>
-  </main>
-</div>
+{% extends 'layouts/main.njk' %} {% set title = "Suchergebnisse" %} {% block
+content %} {% from
+"../node_modules/govuk-frontend/govuk/components/tabs/macro.njk" import
+govukTabs %}
+<section class="content">
+  <header>
+    <h1>Suchergebnisse</h1>
+  </header>
+
+  <div class="govuk-tabs" data-module="govuk-tabs">
+    <ul class="govuk-tabs__list">
+      <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+        <a class="govuk-tabs__tab" href="#alle">
+          <i class="fas fa-search"></i> Alle Suchergebnisse
+        </a>
+      </li>
+      <li class="govuk-tabs__list-item">
+        <a class="govuk-tabs__tab" href="#gesetze">
+          <i class="fas fa-landmark"></i> Gesetze & Verordnungen
+        </a>
+      </li>
+      <li class="govuk-tabs__list-item">
+        <a class="govuk-tabs__tab" href="#paragrafen"
+          ><i class="fas section-icon">§</i> Paragrafen
+        </a>
+      </li>
+    </ul>
+
+    <div class="govuk-tabs__panel" id="alle">
+      <ul id="search-results"></ul>
+
+      <div id="pagination" class="hidden">
+        <button type="button" class="button-secondary" id="pagination-btn">
+          Weitere Ergebnisse
+        </button>
+        <div class="pagination-position">
+          Seite <span id="current-page">1</span> von
+          <span id="total-pages"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="gesetze"></div>
+
+    <div
+      class="govuk-tabs__panel govuk-tabs__panel--hidden"
+      id="paragrafen"
+    ></div>
+  </div>
+</section>
 {% endblock %}

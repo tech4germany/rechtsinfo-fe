@@ -1,18 +1,18 @@
 const axios = require('axios')
 const path = require('path')
 const flatCache = require('flat-cache')
+const config = require('./config')
 
 const isDevelopment = process.env.ELEVENTY_ENV === 'development'
 
 const ITEMS_PER_REQUEST = 100
-const BASE_API_URL = 'https://api.rechtsinformationsportal.de'
 const CACHE_KEY = 'lawList'
 const CACHE_FOLDER = path.resolve('./.cache')
 const CACHE_FILE = 'lawList.json'
 
 async function requestLaws(page = 1) {
   try {
-    const url = `${BASE_API_URL}/laws?per_page=${ITEMS_PER_REQUEST}&page=${page}`
+    const url = `${config.BASE_API_URL}/laws?per_page=${ITEMS_PER_REQUEST}&page=${page}`
     const response = await axios.get(url)
     return response.data
   } catch (err) {

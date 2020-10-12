@@ -1,12 +1,15 @@
 const axios = require('axios')
+const config = require('../../_data/config')
 
-const SEARCH_URL = 'https://api.rechtsinformationsportal.de/search?q='
+const SEARCH_URL = config.BASE_API_URL + '/search?q='
 const RESULTS_PER_PAGE = 10
 
 const slugRegex = /laws\/(.*)\/article/ // regex to get slug in article url
 const origin = window.location.origin
 const searchForm = document.getElementById('search-bar')
 const searchInput = document.getElementById('search-bar__input')
+
+let page = 1
 
 // remove html tags from strings
 const removeTags = (string) => {
@@ -21,12 +24,10 @@ const search = (e) => {
   window.location.href = origin + '/suche/?query=' + query
 }
 
-const displayResults = (response) => {
+const displayResults = (data) => {
   //display first 10 results + pagination
   const resEl = document.getElementById('search-results')
-  const total = response.pagination.total
-  resEl.innerHTML = ''
-  response.data.map((entry) => {
+  data.map((entry) => {
     const el = document.createElement('li')
     resEl.appendChild(el)
     const h2 = document.createElement('h2')
@@ -50,12 +51,31 @@ const displayResults = (response) => {
   })
 }
 
-const fetchResults = async (query) => {
-  const url = SEARCH_URL + query
+const showPagination = (pagination) => {
+  document.getElementById('pagination').classList.remove('hidden')
+  const totalPages = document.getElementById('total-pages')
+  const pages = Math.ceil(pagination.total / RESULTS_PER_PAGE)
+  totalPages.innerText = pages
+}
+
+const getMoreResults = (url) => {
+  // TODO: show button only if page < total pages
+  const moreResultsBtn = document.getElementById('pagination-btn')
+  const currentPage = document.getElementById('current-page')
+  currentPage.innerText = page
+  moreResultsBtn.onclick = () => {
+    page++
+    if (url) fetchResults(url, page)
+  }
+}
+
+const fetchResults = async (url, page) => {
   try {
     const response = await axios.get(url)
-    // return the data and the total number of search results
-    displayResults(response.data)
+    const { pagination, links, data } = response.data
+    if (page === 1) showPagination(pagination)
+    displayResults(data)
+    if (links.next) getMoreResults(links.next)
     return response
   } catch (err) {
     console.log(err)
@@ -66,10 +86,11 @@ const fetchResults = async (query) => {
 const init = () => {
   searchForm.onsubmit = search
   const urlParams = new URLSearchParams(window.location.search)
-  const query = urlParams.get('query')
+  const query = urlParams ? urlParams.get('query') : ''
   if (query) {
+    const url = SEARCH_URL + query
     searchInput.value = decodeURIComponent(query)
-    fetchResults(query)
+    fetchResults(url, page)
   }
 }
 
