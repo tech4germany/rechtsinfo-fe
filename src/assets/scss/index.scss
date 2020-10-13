@@ -55,7 +55,9 @@ body {
   }
 }
 
-button {
+button,
+a.button {
+  text-decoration: none;
   border-radius: $border-radius;
   min-height: 44px;
   border: 0;
@@ -77,6 +79,16 @@ button {
   }
 }
 
+a.button {
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+
+  @include govuk-media-query($from: desktop) {
+    display: inline;
+  }
+}
+
 input,
 select,
 textarea {
@@ -84,33 +96,64 @@ textarea {
 }
 
 .disclaimer__container {
-  background-color: $border-gray;
+  background-color: $govuk-brand-colour;
   color: $govuk-secondary-text-colour;
   height: auto;
-  padding: 1rem 0 0.5rem 0;
-  &.hidden {
-    height: 0;
-    overflow: hidden;
-    padding: 0;
+  #disclaimer {
+    background-color: $border-gray;
+    padding: 12px 0;
+    &.hidden {
+      display: none;
+    }
+  }
+  #disclaimer-mini {
+    background-color: $govuk-brand-colour;
+    color: white;
+    text-align: center;
+    padding: 10px 0 0;
+    &.hidden {
+      display: none;
+    }
   }
   p {
-    margin: 0 0 1rem 0;
+    margin: 0;
     max-width: 720px;
+    a {
+      text-decoration: underline;
+    }
   }
-  button {
+  button,
+  a.button {
     width: 100%;
-    margin: 0 0.75em 0.75em 0;
     i.fas {
       margin-left: 5px;
     }
+    &#open-disclaimer {
+      background: none;
+      padding: 10px;
+      cursor: pointer;
+      &:hover {
+        background: none;
+      }
+    }
+
+    &#close-disclaimer {
+      margin: 0 10px 10px 0;
+    }
   }
-  a {
-    text-decoration: underline;
+
+  .disclaimer__actions {
+    margin-top: 1rem;
   }
 
   @include govuk-media-query($from: desktop) {
     button {
       width: auto;
+    }
+
+    #disclaimer-mini {
+      text-align: left;
+      padding: 0;
     }
   }
 }
@@ -238,6 +281,10 @@ h2 {
       opacity: 0.8;
     }
   }
+}
+
+h3 {
+  color: $govuk-text-colour;
 }
 
 a {
@@ -436,10 +483,6 @@ a {
 
   h1 + .govuk-caption-xl {
     font-size: 1.5rem;
-  }
-
-  [data-type='inhaltsverzeichnis'] {
-    font-size: 1rem;
   }
 
   .js-enabled {

@@ -1,28 +1,40 @@
-<div class="disclaimer__container" id="disclaimer">
-  <div class="govuk-width-container">
-    <p>
-      Dies ist eine Test-Version eines zukünftigen Rechtsinformationsportals,
-      mit der Annahmen und Funktionen mit NutzerInnen getestet werden. Diese
-      Version wurde im Rahmen des 12-wöchigen <a
-        href="https://tech.4germany.org/"
-        target="_blank"
-        >Tech4Germany</a
-      > Fellowships im Sommer 2020 in Zusammenarbeit mit dem <a
-        href="https://www.bmjv.de/DE/Startseite/Startseite_node.html"
-        target="_blank"
-        >BMJV</a
-      > erarbeitet. Für weitere Informationen besuchen Sie die
-      detaillierte Fallstudie.
-    </p>
-    <div class="disclaimer__actions">
-      <button type="button" id="disclaimer-button">
-        <span class="visually-hidden">Disclaimer</span>
-        Schließen <i class="fas fa-times-circle"></i>
-      </button>
-      <button type="button" id="weitere-informationen" class="button-secondary">
-        Weitere Informationen <span class="visually-hidden">zum Projekt</span>
-        <i class="fas fa-arrow-right"></i>
-      </button>
+<div class="disclaimer__container">
+  <div id="disclaimer-mini" class="hidden">
+    <div class="govuk-width-container">
+      <p>
+        Disclaimer: kein offzielles Portal des BMJV.
+        <button id="open-disclaimer">[ Mehr Informationen ]</button>
+      </p>
+    </div>
+  </div>
+  <div id="disclaimer">
+    <div class="govuk-width-container">
+      <p>
+        Diese Test-Version eines zukünftigen Rechtsinformationsportals wurde im
+        Rahmen des 12-wöchigen
+        <a href="https://tech.4germany.org/" target="_blank">Tech4Germany</a>
+        Fellowships 2020 in Zusammenarbeit mit dem
+        <a
+          href="https://www.bmjv.de/DE/Startseite/Startseite_node.html"
+          target="_blank"
+          >BMJV</a
+        >
+        erarbeitet.
+      </p>
+      <div class="disclaimer__actions">
+        <button type="button" id="close-disclaimer">
+          <span class="visually-hidden">Disclaimer</span>
+          Schließen <i class="fas fa-times-circle"></i>
+        </button>
+        <a
+          href="https://tech.4germany.org/project/rechtsinformationsportal/"
+          id="weitere-informationen"
+          class="button button-secondary"
+        >
+          Detaillierte Fallstudie
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
     </div>
   </div>
 </div>
