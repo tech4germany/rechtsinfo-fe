@@ -1,12 +1,9 @@
 const getLawList = require('./lawList')
 
 const axios = require('axios')
-const path = require('path')
-const flatCache = require('flat-cache')
+const axiosRetry = require('axios-retry')
 
-const CACHE_KEY = 'laws'
-const CACHE_FOLDER = path.resolve('./.cache')
-const CACHE_FILE = 'laws.json'
+axiosRetry(axios, { retries: 3 })
 
 function splitToChunks(items, chunkSize = 50) {
   const result = []
@@ -68,17 +65,6 @@ const mapSeries = async (iterable) => {
 
 module.exports = async function () {
   let apiData = []
-  // load cache
-  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
-  const cachedItems = cache.getKey(CACHE_KEY)
-
-  // if we have a cache, return cached data
-  if (cachedItems) {
-    let laws = cachedItems.filter(
-      (v, i, a) => a.findIndex((t) => t.id === v.id) === i
-    )
-    return laws
-  }
 
   // await list of laws from API
   const list = await getLawList()
@@ -87,16 +73,5 @@ module.exports = async function () {
   // await all responses
   apiData = await mapSeries(groups)
 
-  // set and save cache
-  if (apiData.length) {
-    cache.setKey(CACHE_KEY, apiData)
-    cache.save()
-  }
-
-  // TODO: remove once API returns unique values
-  let laws = apiData.filter(
-    (v, i, a) => a.findIndex((t) => t.id === v.id) === i
-  )
-
-  return laws
+  return apiData
 }

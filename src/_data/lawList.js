@@ -1,14 +1,9 @@
 const axios = require('axios')
-const path = require('path')
-const flatCache = require('flat-cache')
 const config = require('./config')
 
 const isDevelopment = process.env.ELEVENTY_ENV === 'development'
 
 const ITEMS_PER_REQUEST = 100
-const CACHE_KEY = 'lawList'
-const CACHE_FOLDER = path.resolve('./.cache')
-const CACHE_FILE = 'lawList.json'
 
 async function requestLaws(page = 1) {
   try {
@@ -22,16 +17,6 @@ async function requestLaws(page = 1) {
 }
 
 async function getLawList() {
-  // load cache
-  const cache = flatCache.load(CACHE_FILE, CACHE_FOLDER)
-  const cachedItems = cache.getKey(CACHE_KEY)
-
-  // if we have a cache, return cached data
-  if (cachedItems) {
-    return cachedItems
-  }
-
-  // variables
   let requests = []
   let apiData = []
   let additionalRequests = 0
@@ -64,12 +49,6 @@ async function getLawList() {
       .toLowerCase()
       .localeCompare(b.abbreviation.toLowerCase())
   })
-
-  // set and save cache
-  if (apiData.length) {
-    cache.setKey(CACHE_KEY, apiData)
-    cache.save()
-  }
 
   // return data
   return apiData
