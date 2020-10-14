@@ -18,14 +18,8 @@
   "dependencies": {
     "@11ty/eleventy": "^0.10.0",
     "axios": "^0.20.0",
-    "chalk": "^4.1.0",
-    "flat-cache": "^2.0.1",
     "govuk-frontend": "^3.8.1",
-    "node-stream-zip": "^1.11.3",
-    "npm-run-all": "^4.1.5",
-    "path": "^0.12.7",
-    "slugify": "^1.4.5",
-    "stream-json": "^1.7.1"
+    "npm-run-all": "^4.1.5"
   },
   "devDependencies": {
     "@babel/core": "7.11.6",
