@@ -3,7 +3,7 @@ const getLawList = require('./lawList')
 const axios = require('axios')
 const axiosRetry = require('axios-retry')
 
-axiosRetry(axios, { retries: 3 })
+axiosRetry(axios, { retries: 3, retryDelay: axiosRetry.exponentialDelay })
 
 function splitToChunks(items, chunkSize = 50) {
   const result = []
