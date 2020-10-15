@@ -1,7 +1,5 @@
 {% extends 'layouts/main.njk' %} {% set title = "Suchergebnisse" %} {% block
-content %} {% from
-"../node_modules/govuk-frontend/govuk/components/tabs/macro.njk" import
-govukTabs %}
+content %}
 <section class="content">
   <header>
     <h1>Suchergebnisse</h1>
@@ -12,40 +10,42 @@ govukTabs %}
       <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
         <a class="govuk-tabs__tab" href="#alle">
           <i class="fas fa-search"></i> Alle Suchergebnisse
+          <span class="filter-number alle">0</span>
         </a>
       </li>
-      <li class="govuk-tabs__list-item">
+      <li class="govuk-tabs__list-item" data-filter="laws">
         <a class="govuk-tabs__tab" href="#gesetze">
           <i class="fas fa-landmark"></i> Gesetze & Verordnungen
+          <span class="filter-number gesetze">0</span>
         </a>
       </li>
-      <li class="govuk-tabs__list-item">
+      <li class="govuk-tabs__list-item" data-filter="articles">
         <a class="govuk-tabs__tab" href="#paragrafen"
           ><i class="fas section-icon">§</i> Paragrafen
+          <span class="filter-number paragrafen">0</span>
         </a>
       </li>
     </ul>
 
-    <div class="govuk-tabs__panel" id="alle">
-      <ul id="search-results"></ul>
-
-      <div id="pagination" class="hidden">
-        <button type="button" class="button-secondary" id="pagination-btn">
-          Weitere Ergebnisse
-        </button>
-        <div class="pagination-position">
-          Seite <span id="current-page">1</span> von
-          <span id="total-pages"></span>
-        </div>
-      </div>
+    <div class="govuk-tabs__panel search-results" id="alle">
+      {% include "./_includes/partials/searchResults.njk" %}
     </div>
 
-    <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="gesetze"></div>
+    <div
+      class="govuk-tabs__panel govuk-tabs__panel--hidden search-results"
+      id="gesetze"
+      data-filter="laws"
+    >
+      {% include "./_includes/partials/searchResults.njk" %}
+    </div>
 
     <div
-      class="govuk-tabs__panel govuk-tabs__panel--hidden"
+      class="govuk-tabs__panel govuk-tabs__panel--hidden search-results"
       id="paragrafen"
-    ></div>
+      data-filter="articles"
+    >
+      {% include "./_includes/partials/searchResults.njk" %}
+    </div>
   </div>
 </section>
 {% endblock %}

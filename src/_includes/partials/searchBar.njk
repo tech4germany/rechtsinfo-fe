@@ -6,7 +6,7 @@
   Abkürzung..." %} {% else %} {% set placeholder = "Suchbegriff eingeben" %} {%
   endif %}
   <label for="search-bar__input"> </label>
-  <input type="text" id="search-bar__input" placeholder="{{ placeholder }}" />
+  <input type="text" id="search-bar__input" maxlength="100" placeholder="{{ placeholder }}" />
   <button type="submit">
     <i class="fas fa-search"></i>
     <span class="visually-hidden">Suchen</span>

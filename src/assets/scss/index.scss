@@ -100,7 +100,7 @@ textarea {
   color: $govuk-secondary-text-colour;
   height: auto;
   #disclaimer {
-    background-color: $border-gray;
+    background-color: $input-hover;
     padding: 12px 0;
     &.hidden {
       display: none;
@@ -117,7 +117,7 @@ textarea {
   }
   p {
     margin: 0;
-    max-width: 720px;
+    max-width: 800px;
     a {
       text-decoration: underline;
     }
@@ -130,7 +130,11 @@ textarea {
     }
     &#open-disclaimer {
       background: none;
-      padding: 10px;
+      padding: 0;
+      text-decoration: underline;
+      min-height: 0;
+      font-weight: 400;
+      font-size: 1rem;
       cursor: pointer;
       &:hover {
         background: none;
@@ -152,8 +156,10 @@ textarea {
     }
 
     #disclaimer-mini {
+      font-size: 1rem;
       text-align: left;
       padding: 0;
+      padding-top: 10px;
     }
   }
 }
@@ -381,7 +387,13 @@ a {
   }
 }
 
-#search-results {
+.filter-number {
+  opacity: 0.6;
+  margin-left: 10px;
+  font-weight: 400;
+}
+
+.search-results ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -392,7 +404,7 @@ a {
 }
 
 // PAGINATION
-#pagination {
+.pagination {
   text-align: center;
   &.hidden {
     visibility: hidden;
@@ -454,6 +466,7 @@ a {
       color: $govuk-text-colour;
       background: none;
       box-shadow: none;
+      font-weight: 600;
     }
     i {
       margin-right: 8px;
@@ -497,7 +510,7 @@ a {
       align-self: flex-start;
       position: -webkit-sticky;
       position: sticky;
-      top: 0;
+      top: 2rem;
     }
     .govuk-tabs__list-item {
       text-align: left;
