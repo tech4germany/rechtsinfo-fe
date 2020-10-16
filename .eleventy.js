@@ -1,6 +1,7 @@
 const unflattenFilter = require('./src/filters/unflattenFilter')
 const emptyFilter = require('./src/filters/emptyFilter')
 const lookupFilter = require('./src/filters/lookupFilter')
+const removeIndexFilter = require('./src/filters/removeIndexFilter')
 const htmlmin = require('html-minifier')
 
 module.exports = function (config) {
@@ -10,6 +11,7 @@ module.exports = function (config) {
   config.addFilter('currentDate', function () {
     return Date.now()
   })
+  config.addNunjucksFilter('removeIndex', removeIndexFilter)
 
   config.addWatchTarget('./src/compiled-assets/main.css')
   config.addWatchTarget('./src/compiled-assets/main.js')
