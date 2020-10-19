@@ -72,10 +72,8 @@ set home = '/' | url %}
         {{ section.body | safe }}
         {% endif %} {% elif section.type === "article" %}
         <h2 class="article-name">
-          <a href="{{ section.id }}.html"
-            ><span class="accent-gray">{{ section.name }}</span>
-            {{ section.title | safe }}</a
-          >
+          <span class="accent-gray">{{ section.name }}</span>
+          {{ section.title | safe }}
         </h2>
         <p>{{ section.body | safe }}</p>
         {% endif %}
