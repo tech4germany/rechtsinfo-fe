@@ -4,7 +4,6 @@ const config = require('../../_data/config')
 const SEARCH_URL = config.BASE_API_URL + '/search'
 const RESULTS_PER_PAGE = 10
 
-const slugRegex = /laws\/(.*)\/article/ // regex to get slug in article url
 const origin = window.location.origin
 
 const searchForm = document.getElementById('search-bar')
@@ -42,18 +41,32 @@ const displayResults = (response, element, page) => {
     const a = document.createElement('a')
     a.target = '_blank'
     let url = ''
+    const tag = document.createElement('span')
+    tag.classList.add('search-result-tag')
     if (entry.type === 'article') {
       a.textContent = removeTags(entry.name)
       if (entry.title) a.textContent += ` ${removeTags(entry.title)}`
-      const slug = entry.url.match(slugRegex)
-      url = origin + '/' + slug[1] + '/index.html#' + entry.id
+      const slug = entry.law.slug
+      url = origin + '/' + slug + '/index.html#' + entry.id
+      const h3 = document.createElement('h3')
+      const a2 = document.createElement('a')
+      a2.target = '_blank'
+      a2.setAttribute('href', origin + '/' + slug + '/index.html')
+      a2.textContent = entry.law.titleShort
+        ? entry.law.titleShort
+        : entry.law.titleLong
+      el.appendChild(h3)
+      h3.appendChild(a2)
+      tag.innerHTML = "<i class='fas section-icon'>§</i> Paragraf"
     } else if (entry.type === 'law') {
       a.textContent = entry.titleShort || entry.titleLong
       if (entry.titleShort) a.innerHTML += `<br/>${entry.titleLong}`
       url = origin + '/' + entry.slug + '/index.html'
+      tag.innerHTML = "<i class='fas fa-landmark'></i> Gesetz"
     }
     a.setAttribute('href', url)
     h2.appendChild(a)
+    el.appendChild(tag)
   })
   // show total pages + load more button
   if (page === 1) {

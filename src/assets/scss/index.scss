@@ -291,6 +291,14 @@ h2 {
 
 h3 {
   color: $govuk-text-colour;
+  a {
+    color: inherit;
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+      opacity: 0.8;
+    }
+  }
 }
 
 .center {
@@ -401,9 +409,31 @@ a {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  li {
+    margin: 0 0 20px 0;
+  }
   h2 {
     font-size: 24px;
     line-height: 30px;
+    margin-bottom: 0;
+  }
+  h3 {
+    color: $govuk-brand-colour;
+    margin: 0 0 5px 0;
+    font-size: 1.25rem;
+  }
+  .search-result-tag {
+    margin-top: 10px;
+    font-size: 1.125rem;
+    color: $govuk-secondary-text-colour;
+    i.fas,
+    i.fa {
+      font-size: 1rem;
+    }
+    i.fas.section-icon,
+    i.fa.section-icon {
+      font-size: 1.4rem;
+    }
   }
 }
 
