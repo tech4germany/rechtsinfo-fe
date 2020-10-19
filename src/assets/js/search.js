@@ -20,10 +20,9 @@ const removeTags = (string) => {
 const search = (e) => {
   e.preventDefault()
   const input = searchInput.value
-  const query = encodeURIComponent(input)
   const searchURL = new URL(origin + '/suche/')
   // add input to query params
-  searchURL.searchParams.append('query', query)
+  searchURL.searchParams.append('query', input)
   // navigate to search template
   window.location.href = searchURL
 }
