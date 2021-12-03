@@ -3,5 +3,4 @@
 /.cache
 .DS_Store
 /src/compiled-assets/
-.terraform/
 lambda_function_payload.zip
