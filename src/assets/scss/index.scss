@@ -2,6 +2,7 @@
 @import 'variables';
 @import 'fonts';
 @import 'govuk-frontend/govuk/all';
+@import 'modal-dialogue';
 @import 'fontawesome/fontawesome.scss';
 
 html,
@@ -99,27 +100,18 @@ textarea {
   background-color: $govuk-brand-colour;
   color: $govuk-secondary-text-colour;
   height: auto;
-  #disclaimer {
-    background-color: $input-hover;
-    padding: 12px 0;
-    &.hidden {
-      display: none;
-    }
-  }
   #disclaimer-mini {
     background-color: $govuk-brand-colour;
     color: white;
     text-align: center;
     padding: 10px 0 0;
-    &.hidden {
-      display: none;
-    }
   }
   p {
     margin: 0;
     max-width: 800px;
     a {
       text-decoration: underline;
+      color: white;
     }
   }
   button,
@@ -128,27 +120,6 @@ textarea {
     i.fas {
       margin-left: 5px;
     }
-    &#open-disclaimer {
-      background: none;
-      padding: 0;
-      text-decoration: underline;
-      min-height: 0;
-      font-weight: 400;
-      font-size: 1rem;
-      width: auto;
-      cursor: pointer;
-      &:hover {
-        background: none;
-      }
-    }
-
-    &#close-disclaimer {
-      margin: 0 10px 10px 0;
-    }
-  }
-
-  .disclaimer__actions {
-    margin-top: 1rem;
   }
 
   @include govuk-media-query($from: desktop) {
@@ -556,5 +527,18 @@ a {
         margin-top: 0;
       }
     }
+  }
+}
+
+// MODAL DIALOGUE
+#disclaimer-modal .gem-c-modal-dialogue__overlay {
+  pointer-events: auto;
+  touch-action: auto;
+  opacity: inherit;
+  background-color: rgba(11, 12, 12, .8);
+
+  a {
+    color: $govuk-link-colour;
+    text-decoration: underline;
   }
 }
